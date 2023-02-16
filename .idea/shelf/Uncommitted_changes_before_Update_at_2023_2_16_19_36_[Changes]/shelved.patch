@@ -1,0 +1,3966 @@
+Index: web-admin/src/main/resources/spring/spring-mvc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<beans xmlns=\"http://www.springframework.org/schema/beans\"\r\n       xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\r\n       xmlns:context=\"http://www.springframework.org/schema/context\"\r\n       xmlns:aop=\"http://www.springframework.org/schema/aop\"\r\n       xmlns:mvc=\"http://www.springframework.org/schema/mvc\"\r\n       xsi:schemaLocation=\"http://www.springframework.org/schema/beans\r\n        http://www.springframework.org/schema/beans/spring-beans.xsd\r\n        http://www.springframework.org/schema/context\r\n        http://www.springframework.org/schema/context/spring-context.xsd\r\n        http://www.springframework.org/schema/aop\r\n        http://www.springframework.org/schema/aop/spring-aop.xsd\r\n        http://www.springframework.org/schema/mvc\r\n        http://www.springframework.org/schema/mvc/spring-mvc.xsd\">\r\n    <!--包扫描-->\r\n    <context:component-scan base-package=\"com.gumsy.controller\" />\r\n\r\n    <!-- 没有匹配上的url全部按默认方式（就是直接访问）访问，避免拦截静态资源 -->\r\n    <mvc:default-servlet-handler/>\r\n    <!-- 开启mvc注解-->\r\n    <mvc:annotation-driven>\r\n        <mvc:message-converters register-defaults=\"true\">\r\n            <!-- 配置Fastjson支持 -->\r\n            <bean class=\"com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter\">\r\n                <property name=\"supportedMediaTypes\">\r\n                    <list>\r\n                        <value>text/html;charset=UTF-8</value>\r\n                        <value>application/json</value>\r\n                    </list>\r\n                </property>\r\n            </bean>\r\n        </mvc:message-converters>\r\n    </mvc:annotation-driven>\r\n\r\n    <!--视图解析器-->\r\n    <bean id=\"templateResolver\" class=\"org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver\">\r\n        <!--配置前缀-->\r\n        <property name=\"prefix\" value=\"/WEB-INF/templates/\"></property>\r\n        <!--配置后缀-->\r\n        <property name=\"suffix\" value=\".html\"></property>\r\n        <!--配置编码格式-->\r\n        <property name=\"characterEncoding\" value=\"UTF-8\"></property>\r\n        <!--设置缓存为null-->\r\n        <property name=\"cacheable\" value=\"false\"></property>\r\n        <!--配置模板模式,\r\n        HTML5:表示严格模式\r\n        LEGACYHTML5：表示宽松模式-->\r\n        <property name=\"templateMode\" value=\"LEGACYHTML5\"></property>\r\n    </bean>\r\n    <!--配置spring的视图解析器  -->\r\n    <bean id=\"viewResolver\" class=\"org.thymeleaf.spring5.view.ThymeleafViewResolver\">\r\n        <!--设置编码格式-->\r\n        <property name=\"characterEncoding\" value=\"UTF-8\"></property>\r\n        <!--设置模板引擎-->\r\n        <property name=\"templateEngine\" ref=\"templateEngine\"/>\r\n    </bean>\r\n    <!--配置模板引擎-->\r\n    <bean id=\"templateEngine\" class=\"org.thymeleaf.spring5.SpringTemplateEngine\">\r\n        <!--引用视图解析器-->\r\n        <property name=\"templateResolver\" ref=\"templateResolver\"></property>\r\n    </bean>\r\n</beans>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/web-admin/src/main/resources/spring/spring-mvc.xml b/web-admin/src/main/resources/spring/spring-mvc.xml
+--- a/web-admin/src/main/resources/spring/spring-mvc.xml	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ b/web-admin/src/main/resources/spring/spring-mvc.xml	(date 1676536402200)
+@@ -13,7 +13,7 @@
+         http://www.springframework.org/schema/mvc
+         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+     <!--包扫描-->
+-    <context:component-scan base-package="com.gumsy.controller" />
++    <context:component-scan base-package="com.gumsy.controller,com.gumsy.service" />
+ 
+     <!-- 没有匹配上的url全部按默认方式（就是直接访问）访问，避免拦截静态资源 -->
+     <mvc:default-servlet-handler/>
+Index: web-admin/src/main/resources/spring/spring-dao.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<beans xmlns=\"http://www.springframework.org/schema/beans\"\r\n       xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\r\n       xmlns:context=\"http://www.springframework.org/schema/context\"\r\n       xmlns:spring-mybatis=\"http://mybatis.org/schema/mybatis-spring\"\r\n       xsi:schemaLocation=\"http://www.springframework.org/schema/beans\r\n                     http://www.springframework.org/schema/beans/spring-beans.xsd http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd\">\r\n\r\n    <!--引入外部配置文件-->\r\n    <context:property-placeholder location=\"classpath:db.properties\"/>\r\n\r\n\r\n    <!--配置数据源-->\r\n    <bean class=\"com.alibaba.druid.pool.DruidDataSource\" id=\"dataSource\" destroy-method=\"close\">\r\n        <!--配置连接数据库相关信息-->\r\n        <property name=\"driverClassName\" value=\"${jdbc.driver}\"/>\r\n        <property name=\"url\" value=\"${jdbc.url}\"/>\r\n        <property name=\"username\" value=\"${jdbc.username}\"/>\r\n        <property name=\"password\" value=\"${jdbc.password}\"/>\r\n    </bean>\r\n\r\n    <!--spring和mybatis整合的工厂bean-->\r\n    <bean id=\"sqlSessionFactory\" class=\"org.mybatis.spring.SqlSessionFactoryBean\">\r\n        <!--数据源-->\r\n        <property name=\"dataSource\" ref=\"dataSource\" />\r\n        <!--配置给实体类包下所有的类起别名-->\r\n        <property name=\"typeAliasesPackage\" value=\"com.gumsy.entity\"></property>\r\n        <!--xml全局配置文件路径-->\r\n        <property name=\"configLocation\" value=\"classpath:mybatis-config.xml\" />\r\n        <!--配置Mapper映射文件的路径-->\r\n        <property name=\"mapperLocations\">\r\n            <array>\r\n                <value>classpath:mapper/*.xml</value>\r\n            </array>\r\n        </property>\r\n    </bean>\r\n    <!--批量扫描接口生成代理对象-->\r\n    <spring-mybatis:scan base-package=\"com.atguigu.dao\"></spring-mybatis:scan>\r\n</beans>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/web-admin/src/main/resources/spring/spring-dao.xml b/web-admin/src/main/resources/spring/spring-dao.xml
+--- a/web-admin/src/main/resources/spring/spring-dao.xml	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ b/web-admin/src/main/resources/spring/spring-dao.xml	(date 1676535580400)
+@@ -1,13 +1,17 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <beans xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+-       xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:spring-mybatis="http://mybatis.org/schema/mybatis-spring"
++       xmlns:context="http://www.springframework.org/schema/context"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans
+-                     http://www.springframework.org/schema/beans/spring-beans.xsd http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd">
++                     http://www.springframework.org/schema/beans/spring-beans.xsd
++                        http://www.springframework.org/schema/context
++                     http://www.springframework.org/schema/context/spring-context.xsd
++                     http://mybatis.org/schema/mybatis-spring
++                     http://mybatis.org/schema/mybatis-spring.xsd">
+ 
+     <!--引入外部配置文件-->
+-    <context:property-placeholder location="classpath:db.properties"/>
++    <context:property-placeholder location="classpath:db.properties"></context:property-placeholder>
+ 
+ 
+     <!--配置数据源-->
+@@ -35,5 +39,5 @@
+         </property>
+     </bean>
+     <!--批量扫描接口生成代理对象-->
+-    <spring-mybatis:scan base-package="com.atguigu.dao"></spring-mybatis:scan>
++    <spring-mybatis:scan base-package="com.gumsy.dao"></spring-mybatis:scan>
+ </beans>
+\ No newline at end of file
+Index: web-admin/src/main/resources/spring/sprig-service.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<beans xmlns=\"http://www.springframework.org/schema/beans\"\r\n       xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\r\n       xmlns:tx=\"http://www.springframework.org/schema/tx\"\r\n       xmlns:context=\"http://www.springframework.org/schema/context\"\r\n       xsi:schemaLocation=\"http://www.springframework.org/schema/beans\r\n                        http://www.springframework.org/schema/beans/spring-beans.xsd\r\n                        http://www.springframework.org/schema/context\r\n                        http://www.springframework.org/schema/context/spring-context.xsd\r\n                        http://www.springframework.org/schema/tx\r\n                        http://www.springframework.org/schema/tx/spring-tx.xsd\">\r\n    <!-- 扫描service包 -->\r\n    <context:component-scan base-package=\"com.gumsy.services\"/>\r\n\r\n    <!-- 事务管理器  -->\r\n    <bean id=\"transactionManager\" class=\"org.springframework.jdbc.datasource.DataSourceTransactionManager\">\r\n        <!--数据源-->\r\n        <property name=\"dataSource\" ref=\"dataSource\"/>\r\n    </bean>\r\n<!--        事务注解支持-->\r\n    <tx:annotation-driven transaction-manager=\"transactionManager\"/>\r\n</beans>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/web-admin/src/main/resources/spring/sprig-service.xml b/web-admin/src/main/resources/spring/sprig-service.xml
+--- a/web-admin/src/main/resources/spring/sprig-service.xml	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ b/web-admin/src/main/resources/spring/sprig-service.xml	(date 1676535922089)
+@@ -9,8 +9,8 @@
+                         http://www.springframework.org/schema/context/spring-context.xsd
+                         http://www.springframework.org/schema/tx
+                         http://www.springframework.org/schema/tx/spring-tx.xsd">
+-    <!-- 扫描service包 -->
+-    <context:component-scan base-package="com.gumsy.services"/>
++    <!-- 扫描service包
++    <context:component-scan base-package="com.gumsy.service"/> -->
+ 
+     <!-- 事务管理器  -->
+     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+Index: web-admin/src/main/resources/mapper/RoleMapper.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n<!DOCTYPE mapper\r\n        PUBLIC \"-//mybatis.org//DTD Mapper 3.0//EN\"\r\n        \"http://mybatis.org/dtd/mybatis-3-mapper.dtd\">\r\n\r\n<mapper namespace=\"com.gumsy.dao.RoleDao\">\r\n\r\n    <!-- 用于select查询公用抽取的列 -->\r\n    <sql id=\"columns\">\r\n        select id,role_name,role_code,description,create_time,update_time,is_deleted\r\n    </sql>\r\n\r\n    <!--  select all -->\r\n    <select id=\"selectAllRole\" resultType=\"role\">\r\n        <include refid=\"columns\"/>\r\n        from acl_role\r\n            where is_deleted = 0\r\n    </select>\r\n\r\n</mapper>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/web-admin/src/main/resources/mapper/RoleMapper.xml b/web-admin/src/main/resources/mapper/RoleMapper.xml
+--- a/web-admin/src/main/resources/mapper/RoleMapper.xml	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ b/web-admin/src/main/resources/mapper/RoleMapper.xml	(date 1676530488773)
+@@ -11,7 +11,7 @@
+     </sql>
+ 
+     <!--  select all -->
+-    <select id="selectAllRole" resultType="role">
++    <select id="findAll" resultType="role">
+         <include refid="columns"/>
+         from acl_role
+             where is_deleted = 0
+Index: web-admin/src/main/resources/db.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>jdbc.driver=com.mysql.cj.jdbc.Driver\r\njdbc.url=jdbc:mysql://localhost:3306/db_house?serverTimezone=Asia/Shanghai\r\njdbc.username=root\r\njdbc.password=mysql
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+diff --git a/web-admin/src/main/resources/db.properties b/web-admin/src/main/resources/db.properties
+--- a/web-admin/src/main/resources/db.properties	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ b/web-admin/src/main/resources/db.properties	(date 1676536607675)
+@@ -1,4 +1,4 @@
+ jdbc.driver=com.mysql.cj.jdbc.Driver
+ jdbc.url=jdbc:mysql://localhost:3306/db_house?serverTimezone=Asia/Shanghai
+ jdbc.username=root
+-jdbc.password=mysql
+\ No newline at end of file
++jdbc.password=123456
+\ No newline at end of file
+Index: .idea/libraries/Maven__com_alibaba_fastjson_1_2_29.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/libraries/Maven__com_alibaba_fastjson_1_2_29.xml b/.idea/libraries/Maven__com_alibaba_fastjson_1_2_29.xml
+deleted file mode 100644
+--- a/.idea/libraries/Maven__com_alibaba_fastjson_1_2_29.xml	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ /dev/null	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
+@@ -1,13 +0,0 @@
+-<component name="libraryTable">
+-  <library name="Maven: com.alibaba:fastjson:1.2.29">
+-    <CLASSES>
+-      <root url="jar://E:/maven_repository/com/alibaba/fastjson/1.2.29/fastjson-1.2.29.jar!/" />
+-    </CLASSES>
+-    <JAVADOC>
+-      <root url="jar://E:/maven_repository/com/alibaba/fastjson/1.2.29/fastjson-1.2.29-javadoc.jar!/" />
+-    </JAVADOC>
+-    <SOURCES>
+-      <root url="jar://E:/maven_repository/com/alibaba/fastjson/1.2.29/fastjson-1.2.29-sources.jar!/" />
+-    </SOURCES>
+-  </library>
+-</component>
+\ No newline at end of file
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+deleted file mode 100644
+--- a/.idea/misc.xml	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ /dev/null	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
+@@ -1,14 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="FrameworkDetectionExcludesConfiguration">
+-    <file type="web" url="file://$PROJECT_DIR$/web-admin" />
+-  </component>
+-  <component name="MavenProjectsManager">
+-    <option name="originalFiles">
+-      <list>
+-        <option value="$PROJECT_DIR$/pom.xml" />
+-      </list>
+-    </option>
+-  </component>
+-  <component name="ProjectRootManager" version="2" project-jdk-name="1.8" project-jdk-type="JavaSDK" />
+-</project>
+\ No newline at end of file
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+deleted file mode 100644
+--- a/.idea/vcs.xml	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ /dev/null	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
+@@ -1,6 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="VcsDirectoryMappings">
+-    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/libraries/Maven__com_github_pagehelper_pagehelper_4_1_4.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/libraries/Maven__com_github_pagehelper_pagehelper_4_1_4.xml b/.idea/libraries/Maven__com_github_pagehelper_pagehelper_4_1_4.xml
+deleted file mode 100644
+--- a/.idea/libraries/Maven__com_github_pagehelper_pagehelper_4_1_4.xml	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ /dev/null	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
+@@ -1,13 +0,0 @@
+-<component name="libraryTable">
+-  <library name="Maven: com.github.pagehelper:pagehelper:4.1.4">
+-    <CLASSES>
+-      <root url="jar://E:/maven_repository/com/github/pagehelper/pagehelper/4.1.4/pagehelper-4.1.4.jar!/" />
+-    </CLASSES>
+-    <JAVADOC>
+-      <root url="jar://E:/maven_repository/com/github/pagehelper/pagehelper/4.1.4/pagehelper-4.1.4-javadoc.jar!/" />
+-    </JAVADOC>
+-    <SOURCES>
+-      <root url="jar://E:/maven_repository/com/github/pagehelper/pagehelper/4.1.4/pagehelper-4.1.4-sources.jar!/" />
+-    </SOURCES>
+-  </library>
+-</component>
+\ No newline at end of file
+Index: .idea/libraries/Maven__org_springframework_spring_test_5_2_7_RELEASE.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/libraries/Maven__org_springframework_spring_test_5_2_7_RELEASE.xml b/.idea/libraries/Maven__org_springframework_spring_test_5_2_7_RELEASE.xml
+deleted file mode 100644
+--- a/.idea/libraries/Maven__org_springframework_spring_test_5_2_7_RELEASE.xml	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ /dev/null	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
+@@ -1,13 +0,0 @@
+-<component name="libraryTable">
+-  <library name="Maven: org.springframework:spring-test:5.2.7.RELEASE">
+-    <CLASSES>
+-      <root url="jar://E:/maven_repository/org/springframework/spring-test/5.2.7.RELEASE/spring-test-5.2.7.RELEASE.jar!/" />
+-    </CLASSES>
+-    <JAVADOC>
+-      <root url="jar://E:/maven_repository/org/springframework/spring-test/5.2.7.RELEASE/spring-test-5.2.7.RELEASE-javadoc.jar!/" />
+-    </JAVADOC>
+-    <SOURCES>
+-      <root url="jar://E:/maven_repository/org/springframework/spring-test/5.2.7.RELEASE/spring-test-5.2.7.RELEASE-sources.jar!/" />
+-    </SOURCES>
+-  </library>
+-</component>
+\ No newline at end of file
+Index: .idea/libraries/Maven__mysql_mysql_connector_java_8_0_18.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/libraries/Maven__mysql_mysql_connector_java_8_0_18.xml b/.idea/libraries/Maven__mysql_mysql_connector_java_8_0_18.xml
+deleted file mode 100644
+--- a/.idea/libraries/Maven__mysql_mysql_connector_java_8_0_18.xml	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ /dev/null	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
+@@ -1,13 +0,0 @@
+-<component name="libraryTable">
+-  <library name="Maven: mysql:mysql-connector-java:8.0.18">
+-    <CLASSES>
+-      <root url="jar://E:/maven_repository/mysql/mysql-connector-java/8.0.18/mysql-connector-java-8.0.18.jar!/" />
+-    </CLASSES>
+-    <JAVADOC>
+-      <root url="jar://E:/maven_repository/mysql/mysql-connector-java/8.0.18/mysql-connector-java-8.0.18-javadoc.jar!/" />
+-    </JAVADOC>
+-    <SOURCES>
+-      <root url="jar://E:/maven_repository/mysql/mysql-connector-java/8.0.18/mysql-connector-java-8.0.18-sources.jar!/" />
+-    </SOURCES>
+-  </library>
+-</component>
+\ No newline at end of file
+Index: .idea/libraries/Maven__com_github_jsqlparser_jsqlparser_0_9_5.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/libraries/Maven__com_github_jsqlparser_jsqlparser_0_9_5.xml b/.idea/libraries/Maven__com_github_jsqlparser_jsqlparser_0_9_5.xml
+deleted file mode 100644
+--- a/.idea/libraries/Maven__com_github_jsqlparser_jsqlparser_0_9_5.xml	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ /dev/null	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
+@@ -1,13 +0,0 @@
+-<component name="libraryTable">
+-  <library name="Maven: com.github.jsqlparser:jsqlparser:0.9.5">
+-    <CLASSES>
+-      <root url="jar://E:/maven_repository/com/github/jsqlparser/jsqlparser/0.9.5/jsqlparser-0.9.5.jar!/" />
+-    </CLASSES>
+-    <JAVADOC>
+-      <root url="jar://E:/maven_repository/com/github/jsqlparser/jsqlparser/0.9.5/jsqlparser-0.9.5-javadoc.jar!/" />
+-    </JAVADOC>
+-    <SOURCES>
+-      <root url="jar://E:/maven_repository/com/github/jsqlparser/jsqlparser/0.9.5/jsqlparser-0.9.5-sources.jar!/" />
+-    </SOURCES>
+-  </library>
+-</component>
+\ No newline at end of file
+Index: .idea/libraries/Maven__org_springframework_spring_aop_5_2_7_RELEASE.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/libraries/Maven__org_springframework_spring_aop_5_2_7_RELEASE.xml b/.idea/libraries/Maven__org_springframework_spring_aop_5_2_7_RELEASE.xml
+deleted file mode 100644
+--- a/.idea/libraries/Maven__org_springframework_spring_aop_5_2_7_RELEASE.xml	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ /dev/null	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
+@@ -1,13 +0,0 @@
+-<component name="libraryTable">
+-  <library name="Maven: org.springframework:spring-aop:5.2.7.RELEASE">
+-    <CLASSES>
+-      <root url="jar://E:/maven_repository/org/springframework/spring-aop/5.2.7.RELEASE/spring-aop-5.2.7.RELEASE.jar!/" />
+-    </CLASSES>
+-    <JAVADOC>
+-      <root url="jar://E:/maven_repository/org/springframework/spring-aop/5.2.7.RELEASE/spring-aop-5.2.7.RELEASE-javadoc.jar!/" />
+-    </JAVADOC>
+-    <SOURCES>
+-      <root url="jar://E:/maven_repository/org/springframework/spring-aop/5.2.7.RELEASE/spring-aop-5.2.7.RELEASE-sources.jar!/" />
+-    </SOURCES>
+-  </library>
+-</component>
+\ No newline at end of file
+Index: .idea/dataSources.xml
+===================================================================
+diff --git a/.idea/dataSources.xml b/.idea/dataSources.xml
+deleted file mode 100644
+--- a/.idea/dataSources.xml	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ /dev/null	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
+@@ -1,15 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+-    <data-source source="LOCAL" name="wuye" uuid="2800e6b2-bc5f-484e-82b3-5758be8c34e3">
+-      <driver-ref>mysql.8</driver-ref>
+-      <synchronize>true</synchronize>
+-      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+-      <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>
+-      <working-dir>$ProjectFileDir$</working-dir>
+-      <driver-properties>
+-        <property name="serverTimezone" value="Asia/Shanghai" />
+-      </driver-properties>
+-    </data-source>
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/sqldialects.xml
+===================================================================
+diff --git a/.idea/sqldialects.xml b/.idea/sqldialects.xml
+deleted file mode 100644
+--- a/.idea/sqldialects.xml	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ /dev/null	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
+@@ -1,6 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="SqlDialectMappings">
+-    <file url="file://G:/05-尚好房项目【完结】/配套资料（笔记)+所需软件/06_尚好房/02.资料/数据库/db_house.sql" dialect="MySQL" />
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/libraries/Maven__org_springframework_spring_webmvc_5_2_7_RELEASE.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/libraries/Maven__org_springframework_spring_webmvc_5_2_7_RELEASE.xml b/.idea/libraries/Maven__org_springframework_spring_webmvc_5_2_7_RELEASE.xml
+deleted file mode 100644
+--- a/.idea/libraries/Maven__org_springframework_spring_webmvc_5_2_7_RELEASE.xml	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ /dev/null	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
+@@ -1,13 +0,0 @@
+-<component name="libraryTable">
+-  <library name="Maven: org.springframework:spring-webmvc:5.2.7.RELEASE">
+-    <CLASSES>
+-      <root url="jar://E:/maven_repository/org/springframework/spring-webmvc/5.2.7.RELEASE/spring-webmvc-5.2.7.RELEASE.jar!/" />
+-    </CLASSES>
+-    <JAVADOC>
+-      <root url="jar://E:/maven_repository/org/springframework/spring-webmvc/5.2.7.RELEASE/spring-webmvc-5.2.7.RELEASE-javadoc.jar!/" />
+-    </JAVADOC>
+-    <SOURCES>
+-      <root url="jar://E:/maven_repository/org/springframework/spring-webmvc/5.2.7.RELEASE/spring-webmvc-5.2.7.RELEASE-sources.jar!/" />
+-    </SOURCES>
+-  </library>
+-</component>
+\ No newline at end of file
+Index: .idea/libraries/Maven__org_thymeleaf_thymeleaf_spring5_3_0_11_RELEASE.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/libraries/Maven__org_thymeleaf_thymeleaf_spring5_3_0_11_RELEASE.xml b/.idea/libraries/Maven__org_thymeleaf_thymeleaf_spring5_3_0_11_RELEASE.xml
+deleted file mode 100644
+--- a/.idea/libraries/Maven__org_thymeleaf_thymeleaf_spring5_3_0_11_RELEASE.xml	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ /dev/null	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
+@@ -1,13 +0,0 @@
+-<component name="libraryTable">
+-  <library name="Maven: org.thymeleaf:thymeleaf-spring5:3.0.11.RELEASE">
+-    <CLASSES>
+-      <root url="jar://E:/maven_repository/org/thymeleaf/thymeleaf-spring5/3.0.11.RELEASE/thymeleaf-spring5-3.0.11.RELEASE.jar!/" />
+-    </CLASSES>
+-    <JAVADOC>
+-      <root url="jar://E:/maven_repository/org/thymeleaf/thymeleaf-spring5/3.0.11.RELEASE/thymeleaf-spring5-3.0.11.RELEASE-javadoc.jar!/" />
+-    </JAVADOC>
+-    <SOURCES>
+-      <root url="jar://E:/maven_repository/org/thymeleaf/thymeleaf-spring5/3.0.11.RELEASE/thymeleaf-spring5-3.0.11.RELEASE-sources.jar!/" />
+-    </SOURCES>
+-  </library>
+-</component>
+\ No newline at end of file
+Index: .idea/artifacts/web_admin_war_exploded.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/artifacts/web_admin_war_exploded.xml b/.idea/artifacts/web_admin_war_exploded.xml
+deleted file mode 100644
+--- a/.idea/artifacts/web_admin_war_exploded.xml	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ /dev/null	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
+@@ -1,61 +0,0 @@
+-<component name="ArtifactManager">
+-  <artifact type="exploded-war" name="web-admin:war exploded">
+-    <output-path>$PROJECT_DIR$/web-admin/target/web-admin-1.0</output-path>
+-    <properties id="maven-jee-properties">
+-      <options>
+-        <exploded>true</exploded>
+-        <module>web-admin</module>
+-        <packaging>war</packaging>
+-      </options>
+-    </properties>
+-    <root id="root">
+-      <element id="directory" name="WEB-INF">
+-        <element id="directory" name="classes">
+-          <element id="module-output" name="web-admin" />
+-        </element>
+-        <element id="directory" name="lib">
+-          <element id="archive" name="common-util-1.0.jar">
+-            <element id="module-output" name="common-util" />
+-          </element>
+-          <element id="library" level="project" name="Maven: org.springframework:spring-webmvc:5.2.7.RELEASE" />
+-          <element id="library" level="project" name="Maven: org.springframework:spring-aop:5.2.7.RELEASE" />
+-          <element id="library" level="project" name="Maven: org.springframework:spring-beans:5.2.7.RELEASE" />
+-          <element id="library" level="project" name="Maven: org.springframework:spring-context:5.2.7.RELEASE" />
+-          <element id="library" level="project" name="Maven: org.springframework:spring-core:5.2.7.RELEASE" />
+-          <element id="library" level="project" name="Maven: org.springframework:spring-jcl:5.2.7.RELEASE" />
+-          <element id="library" level="project" name="Maven: org.springframework:spring-expression:5.2.7.RELEASE" />
+-          <element id="library" level="project" name="Maven: org.springframework:spring-web:5.2.7.RELEASE" />
+-          <element id="library" level="project" name="Maven: org.springframework:spring-jdbc:5.2.7.RELEASE" />
+-          <element id="library" level="project" name="Maven: org.springframework:spring-tx:5.2.7.RELEASE" />
+-          <element id="library" level="project" name="Maven: org.springframework:spring-aspects:5.2.7.RELEASE" />
+-          <element id="library" level="project" name="Maven: org.aspectj:aspectjweaver:1.9.5" />
+-          <element id="library" level="project" name="Maven: org.springframework:spring-test:5.2.7.RELEASE" />
+-          <element id="library" level="project" name="Maven: org.thymeleaf:thymeleaf-spring5:3.0.11.RELEASE" />
+-          <element id="library" level="project" name="Maven: org.thymeleaf:thymeleaf:3.0.11.RELEASE" />
+-          <element id="library" level="project" name="Maven: org.attoparser:attoparser:2.0.5.RELEASE" />
+-          <element id="library" level="project" name="Maven: org.unbescape:unbescape:1.1.6.RELEASE" />
+-          <element id="library" level="project" name="Maven: com.github.pagehelper:pagehelper:4.1.4" />
+-          <element id="library" level="project" name="Maven: com.github.jsqlparser:jsqlparser:0.9.5" />
+-          <element id="library" level="project" name="Maven: org.mybatis:mybatis:3.4.5" />
+-          <element id="library" level="project" name="Maven: org.mybatis:mybatis-spring:1.3.1" />
+-          <element id="library" level="project" name="Maven: mysql:mysql-connector-java:8.0.18" />
+-          <element id="library" level="project" name="Maven: com.google.protobuf:protobuf-java:3.6.1" />
+-          <element id="library" level="project" name="Maven: com.alibaba:druid:1.1.12" />
+-          <element id="library" level="project" name="Maven: commons-fileupload:commons-fileupload:1.3.1" />
+-          <element id="library" level="project" name="Maven: commons-io:commons-io:2.2" />
+-          <element id="library" level="project" name="Maven: com.alibaba:fastjson:1.2.29" />
+-          <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.30" />
+-          <element id="library" level="project" name="Maven: ch.qos.logback:logback-classic:1.2.3" />
+-          <element id="library" level="project" name="Maven: ch.qos.logback:logback-core:1.2.3" />
+-          <element id="archive" name="model-1.0.jar">
+-            <element id="module-output" name="model" />
+-          </element>
+-        </element>
+-      </element>
+-      <element id="directory" name="META-INF">
+-        <element id="file-copy" path="$PROJECT_DIR$/web-admin/target/web-admin-1.0/META-INF/MANIFEST.MF" />
+-      </element>
+-      <element id="javaee-facet-resources" facet="web-admin/web/Web" />
+-    </root>
+-  </artifact>
+-</component>
+\ No newline at end of file
+Index: .idea/compiler.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/compiler.xml b/.idea/compiler.xml
+deleted file mode 100644
+--- a/.idea/compiler.xml	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ /dev/null	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
+@@ -1,21 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="CompilerConfiguration">
+-    <annotationProcessing>
+-      <profile name="Maven default annotation processors profile" enabled="true">
+-        <sourceOutputDir name="target/generated-sources/annotations" />
+-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+-        <outputRelativeToContentRoot value="true" />
+-        <module name="common-util" />
+-        <module name="model" />
+-        <module name="web-admin" />
+-      </profile>
+-    </annotationProcessing>
+-    <bytecodeTargetLevel>
+-      <module name="common-util" target="1.8" />
+-      <module name="model" target="1.8" />
+-      <module name="web-admin" target="1.8" />
+-      <module name="wuye-parent" target="1.8" />
+-    </bytecodeTargetLevel>
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/libraries/Maven__org_springframework_spring_context_5_2_7_RELEASE.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/libraries/Maven__org_springframework_spring_context_5_2_7_RELEASE.xml b/.idea/libraries/Maven__org_springframework_spring_context_5_2_7_RELEASE.xml
+deleted file mode 100644
+--- a/.idea/libraries/Maven__org_springframework_spring_context_5_2_7_RELEASE.xml	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ /dev/null	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
+@@ -1,13 +0,0 @@
+-<component name="libraryTable">
+-  <library name="Maven: org.springframework:spring-context:5.2.7.RELEASE">
+-    <CLASSES>
+-      <root url="jar://E:/maven_repository/org/springframework/spring-context/5.2.7.RELEASE/spring-context-5.2.7.RELEASE.jar!/" />
+-    </CLASSES>
+-    <JAVADOC>
+-      <root url="jar://E:/maven_repository/org/springframework/spring-context/5.2.7.RELEASE/spring-context-5.2.7.RELEASE-javadoc.jar!/" />
+-    </JAVADOC>
+-    <SOURCES>
+-      <root url="jar://E:/maven_repository/org/springframework/spring-context/5.2.7.RELEASE/spring-context-5.2.7.RELEASE-sources.jar!/" />
+-    </SOURCES>
+-  </library>
+-</component>
+\ No newline at end of file
+Index: .idea/encodings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/encodings.xml b/.idea/encodings.xml
+deleted file mode 100644
+--- a/.idea/encodings.xml	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ /dev/null	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
+@@ -1,13 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="Encoding">
+-    <file url="file://$PROJECT_DIR$/common-util/src/main/java" charset="UTF-8" />
+-    <file url="file://$PROJECT_DIR$/common-util/src/main/resources" charset="UTF-8" />
+-    <file url="file://$PROJECT_DIR$/model/src/main/java" charset="UTF-8" />
+-    <file url="file://$PROJECT_DIR$/model/src/main/resources" charset="UTF-8" />
+-    <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
+-    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+-    <file url="file://$PROJECT_DIR$/web-admin/src/main/java" charset="UTF-8" />
+-    <file url="file://$PROJECT_DIR$/web-admin/src/main/resources" charset="UTF-8" />
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/libraries/Maven__org_springframework_spring_tx_5_2_7_RELEASE.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/libraries/Maven__org_springframework_spring_tx_5_2_7_RELEASE.xml b/.idea/libraries/Maven__org_springframework_spring_tx_5_2_7_RELEASE.xml
+deleted file mode 100644
+--- a/.idea/libraries/Maven__org_springframework_spring_tx_5_2_7_RELEASE.xml	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ /dev/null	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
+@@ -1,13 +0,0 @@
+-<component name="libraryTable">
+-  <library name="Maven: org.springframework:spring-tx:5.2.7.RELEASE">
+-    <CLASSES>
+-      <root url="jar://E:/maven_repository/org/springframework/spring-tx/5.2.7.RELEASE/spring-tx-5.2.7.RELEASE.jar!/" />
+-    </CLASSES>
+-    <JAVADOC>
+-      <root url="jar://E:/maven_repository/org/springframework/spring-tx/5.2.7.RELEASE/spring-tx-5.2.7.RELEASE-javadoc.jar!/" />
+-    </JAVADOC>
+-    <SOURCES>
+-      <root url="jar://E:/maven_repository/org/springframework/spring-tx/5.2.7.RELEASE/spring-tx-5.2.7.RELEASE-sources.jar!/" />
+-    </SOURCES>
+-  </library>
+-</component>
+\ No newline at end of file
+Index: .idea/libraries/Maven__ch_qos_logback_logback_core_1_2_3.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/libraries/Maven__ch_qos_logback_logback_core_1_2_3.xml b/.idea/libraries/Maven__ch_qos_logback_logback_core_1_2_3.xml
+deleted file mode 100644
+--- a/.idea/libraries/Maven__ch_qos_logback_logback_core_1_2_3.xml	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ /dev/null	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
+@@ -1,13 +0,0 @@
+-<component name="libraryTable">
+-  <library name="Maven: ch.qos.logback:logback-core:1.2.3">
+-    <CLASSES>
+-      <root url="jar://E:/maven_repository/ch/qos/logback/logback-core/1.2.3/logback-core-1.2.3.jar!/" />
+-    </CLASSES>
+-    <JAVADOC>
+-      <root url="jar://E:/maven_repository/ch/qos/logback/logback-core/1.2.3/logback-core-1.2.3-javadoc.jar!/" />
+-    </JAVADOC>
+-    <SOURCES>
+-      <root url="jar://E:/maven_repository/ch/qos/logback/logback-core/1.2.3/logback-core-1.2.3-sources.jar!/" />
+-    </SOURCES>
+-  </library>
+-</component>
+\ No newline at end of file
+Index: .idea/libraries/Maven__ch_qos_logback_logback_classic_1_2_3.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/libraries/Maven__ch_qos_logback_logback_classic_1_2_3.xml b/.idea/libraries/Maven__ch_qos_logback_logback_classic_1_2_3.xml
+deleted file mode 100644
+--- a/.idea/libraries/Maven__ch_qos_logback_logback_classic_1_2_3.xml	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ /dev/null	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
+@@ -1,13 +0,0 @@
+-<component name="libraryTable">
+-  <library name="Maven: ch.qos.logback:logback-classic:1.2.3">
+-    <CLASSES>
+-      <root url="jar://E:/maven_repository/ch/qos/logback/logback-classic/1.2.3/logback-classic-1.2.3.jar!/" />
+-    </CLASSES>
+-    <JAVADOC>
+-      <root url="jar://E:/maven_repository/ch/qos/logback/logback-classic/1.2.3/logback-classic-1.2.3-javadoc.jar!/" />
+-    </JAVADOC>
+-    <SOURCES>
+-      <root url="jar://E:/maven_repository/ch/qos/logback/logback-classic/1.2.3/logback-classic-1.2.3-sources.jar!/" />
+-    </SOURCES>
+-  </library>
+-</component>
+\ No newline at end of file
+Index: .idea/libraries/Maven__org_springframework_spring_web_5_2_7_RELEASE.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/libraries/Maven__org_springframework_spring_web_5_2_7_RELEASE.xml b/.idea/libraries/Maven__org_springframework_spring_web_5_2_7_RELEASE.xml
+deleted file mode 100644
+--- a/.idea/libraries/Maven__org_springframework_spring_web_5_2_7_RELEASE.xml	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ /dev/null	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
+@@ -1,13 +0,0 @@
+-<component name="libraryTable">
+-  <library name="Maven: org.springframework:spring-web:5.2.7.RELEASE">
+-    <CLASSES>
+-      <root url="jar://E:/maven_repository/org/springframework/spring-web/5.2.7.RELEASE/spring-web-5.2.7.RELEASE.jar!/" />
+-    </CLASSES>
+-    <JAVADOC>
+-      <root url="jar://E:/maven_repository/org/springframework/spring-web/5.2.7.RELEASE/spring-web-5.2.7.RELEASE-javadoc.jar!/" />
+-    </JAVADOC>
+-    <SOURCES>
+-      <root url="jar://E:/maven_repository/org/springframework/spring-web/5.2.7.RELEASE/spring-web-5.2.7.RELEASE-sources.jar!/" />
+-    </SOURCES>
+-  </library>
+-</component>
+\ No newline at end of file
+Index: web-admin/src/main/java/com/gumsy/services/RoleServices.java
+===================================================================
+diff --git a/web-admin/src/main/java/com/gumsy/services/RoleServices.java b/web-admin/src/main/java/com/gumsy/services/RoleServices.java
+deleted file mode 100644
+--- a/web-admin/src/main/java/com/gumsy/services/RoleServices.java	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ /dev/null	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
+@@ -1,15 +0,0 @@
+-package com.gumsy.services;
+-
+-import com.gumsy.entity.Role;
+-
+-import java.util.List;
+-
+-public interface RoleServices {
+-    List<Role> findAll();
+-
+-    Role findById(int id);
+-
+-    void save(Role role);
+-
+-    void deleteById(int id);
+-}
+Index: .idea/libraries/Maven__org_springframework_spring_expression_5_2_7_RELEASE.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/libraries/Maven__org_springframework_spring_expression_5_2_7_RELEASE.xml b/.idea/libraries/Maven__org_springframework_spring_expression_5_2_7_RELEASE.xml
+deleted file mode 100644
+--- a/.idea/libraries/Maven__org_springframework_spring_expression_5_2_7_RELEASE.xml	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ /dev/null	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
+@@ -1,13 +0,0 @@
+-<component name="libraryTable">
+-  <library name="Maven: org.springframework:spring-expression:5.2.7.RELEASE">
+-    <CLASSES>
+-      <root url="jar://E:/maven_repository/org/springframework/spring-expression/5.2.7.RELEASE/spring-expression-5.2.7.RELEASE.jar!/" />
+-    </CLASSES>
+-    <JAVADOC>
+-      <root url="jar://E:/maven_repository/org/springframework/spring-expression/5.2.7.RELEASE/spring-expression-5.2.7.RELEASE-javadoc.jar!/" />
+-    </JAVADOC>
+-    <SOURCES>
+-      <root url="jar://E:/maven_repository/org/springframework/spring-expression/5.2.7.RELEASE/spring-expression-5.2.7.RELEASE-sources.jar!/" />
+-    </SOURCES>
+-  </library>
+-</component>
+\ No newline at end of file
+Index: .idea/libraries/Maven__org_springframework_spring_jcl_5_2_7_RELEASE.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/libraries/Maven__org_springframework_spring_jcl_5_2_7_RELEASE.xml b/.idea/libraries/Maven__org_springframework_spring_jcl_5_2_7_RELEASE.xml
+deleted file mode 100644
+--- a/.idea/libraries/Maven__org_springframework_spring_jcl_5_2_7_RELEASE.xml	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ /dev/null	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
+@@ -1,13 +0,0 @@
+-<component name="libraryTable">
+-  <library name="Maven: org.springframework:spring-jcl:5.2.7.RELEASE">
+-    <CLASSES>
+-      <root url="jar://E:/maven_repository/org/springframework/spring-jcl/5.2.7.RELEASE/spring-jcl-5.2.7.RELEASE.jar!/" />
+-    </CLASSES>
+-    <JAVADOC>
+-      <root url="jar://E:/maven_repository/org/springframework/spring-jcl/5.2.7.RELEASE/spring-jcl-5.2.7.RELEASE-javadoc.jar!/" />
+-    </JAVADOC>
+-    <SOURCES>
+-      <root url="jar://E:/maven_repository/org/springframework/spring-jcl/5.2.7.RELEASE/spring-jcl-5.2.7.RELEASE-sources.jar!/" />
+-    </SOURCES>
+-  </library>
+-</component>
+\ No newline at end of file
+Index: .idea/dataSources.local.xml
+===================================================================
+diff --git a/.idea/dataSources.local.xml b/.idea/dataSources.local.xml
+deleted file mode 100644
+--- a/.idea/dataSources.local.xml	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ /dev/null	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
+@@ -1,19 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="dataSourceStorageLocal" created-in="IU-223.8617.56">
+-    <data-source name="wuye" uuid="2800e6b2-bc5f-484e-82b3-5758be8c34e3">
+-      <database-info product="MySQL" version="8.0.31" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.19 (Revision: a0ca826f5cdf51a98356fdfb1bf251eb042f80bf)" dbms="MYSQL" exact-version="8.0.31" exact-driver-version="8.0">
+-        <extra-name-characters>#@</extra-name-characters>
+-        <identifier-quote-string>`</identifier-quote-string>
+-      </database-info>
+-      <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower" />
+-      <secret-storage>master_key</secret-storage>
+-      <user-name>root</user-name>
+-      <schema-mapping>
+-        <introspection-scope>
+-          <node kind="schema" qname="db_house" />
+-        </introspection-scope>
+-      </schema-mapping>
+-    </data-source>
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/libraries/Maven__org_slf4j_slf4j_api_1_7_30.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_30.xml b/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_30.xml
+deleted file mode 100644
+--- a/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_30.xml	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ /dev/null	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
+@@ -1,13 +0,0 @@
+-<component name="libraryTable">
+-  <library name="Maven: org.slf4j:slf4j-api:1.7.30">
+-    <CLASSES>
+-      <root url="jar://E:/maven_repository/org/slf4j/slf4j-api/1.7.30/slf4j-api-1.7.30.jar!/" />
+-    </CLASSES>
+-    <JAVADOC>
+-      <root url="jar://E:/maven_repository/org/slf4j/slf4j-api/1.7.30/slf4j-api-1.7.30-javadoc.jar!/" />
+-    </JAVADOC>
+-    <SOURCES>
+-      <root url="jar://E:/maven_repository/org/slf4j/slf4j-api/1.7.30/slf4j-api-1.7.30-sources.jar!/" />
+-    </SOURCES>
+-  </library>
+-</component>
+\ No newline at end of file
+Index: .idea/artifacts/web_admin_war.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/artifacts/web_admin_war.xml b/.idea/artifacts/web_admin_war.xml
+deleted file mode 100644
+--- a/.idea/artifacts/web_admin_war.xml	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ /dev/null	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
+@@ -1,14 +0,0 @@
+-<component name="ArtifactManager">
+-  <artifact type="war" name="web-admin:war">
+-    <output-path>$PROJECT_DIR$/web-admin/target</output-path>
+-    <properties id="maven-jee-properties">
+-      <options>
+-        <module>web-admin</module>
+-        <packaging>war</packaging>
+-      </options>
+-    </properties>
+-    <root id="archive" name="web-admin-1.0.war">
+-      <element id="artifact" artifact-name="web-admin:war exploded" />
+-    </root>
+-  </artifact>
+-</component>
+\ No newline at end of file
+Index: .idea/libraries/Maven__org_thymeleaf_thymeleaf_3_0_11_RELEASE.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/libraries/Maven__org_thymeleaf_thymeleaf_3_0_11_RELEASE.xml b/.idea/libraries/Maven__org_thymeleaf_thymeleaf_3_0_11_RELEASE.xml
+deleted file mode 100644
+--- a/.idea/libraries/Maven__org_thymeleaf_thymeleaf_3_0_11_RELEASE.xml	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ /dev/null	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
+@@ -1,13 +0,0 @@
+-<component name="libraryTable">
+-  <library name="Maven: org.thymeleaf:thymeleaf:3.0.11.RELEASE">
+-    <CLASSES>
+-      <root url="jar://E:/maven_repository/org/thymeleaf/thymeleaf/3.0.11.RELEASE/thymeleaf-3.0.11.RELEASE.jar!/" />
+-    </CLASSES>
+-    <JAVADOC>
+-      <root url="jar://E:/maven_repository/org/thymeleaf/thymeleaf/3.0.11.RELEASE/thymeleaf-3.0.11.RELEASE-javadoc.jar!/" />
+-    </JAVADOC>
+-    <SOURCES>
+-      <root url="jar://E:/maven_repository/org/thymeleaf/thymeleaf/3.0.11.RELEASE/thymeleaf-3.0.11.RELEASE-sources.jar!/" />
+-    </SOURCES>
+-  </library>
+-</component>
+\ No newline at end of file
+Index: .idea/libraries/Maven__javax_servlet_servlet_api_2_5.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/libraries/Maven__javax_servlet_servlet_api_2_5.xml b/.idea/libraries/Maven__javax_servlet_servlet_api_2_5.xml
+deleted file mode 100644
+--- a/.idea/libraries/Maven__javax_servlet_servlet_api_2_5.xml	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ /dev/null	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
+@@ -1,13 +0,0 @@
+-<component name="libraryTable">
+-  <library name="Maven: javax.servlet:servlet-api:2.5">
+-    <CLASSES>
+-      <root url="jar://E:/maven_repository/javax/servlet/servlet-api/2.5/servlet-api-2.5.jar!/" />
+-    </CLASSES>
+-    <JAVADOC>
+-      <root url="jar://E:/maven_repository/javax/servlet/servlet-api/2.5/servlet-api-2.5-javadoc.jar!/" />
+-    </JAVADOC>
+-    <SOURCES>
+-      <root url="jar://E:/maven_repository/javax/servlet/servlet-api/2.5/servlet-api-2.5-sources.jar!/" />
+-    </SOURCES>
+-  </library>
+-</component>
+\ No newline at end of file
+Index: .idea/libraries/Maven__org_mybatis_mybatis_3_4_5.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/libraries/Maven__org_mybatis_mybatis_3_4_5.xml b/.idea/libraries/Maven__org_mybatis_mybatis_3_4_5.xml
+deleted file mode 100644
+--- a/.idea/libraries/Maven__org_mybatis_mybatis_3_4_5.xml	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ /dev/null	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
+@@ -1,13 +0,0 @@
+-<component name="libraryTable">
+-  <library name="Maven: org.mybatis:mybatis:3.4.5">
+-    <CLASSES>
+-      <root url="jar://E:/maven_repository/org/mybatis/mybatis/3.4.5/mybatis-3.4.5.jar!/" />
+-    </CLASSES>
+-    <JAVADOC>
+-      <root url="jar://E:/maven_repository/org/mybatis/mybatis/3.4.5/mybatis-3.4.5-javadoc.jar!/" />
+-    </JAVADOC>
+-    <SOURCES>
+-      <root url="jar://E:/maven_repository/org/mybatis/mybatis/3.4.5/mybatis-3.4.5-sources.jar!/" />
+-    </SOURCES>
+-  </library>
+-</component>
+\ No newline at end of file
+Index: .idea/libraries/Maven__org_attoparser_attoparser_2_0_5_RELEASE.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/libraries/Maven__org_attoparser_attoparser_2_0_5_RELEASE.xml b/.idea/libraries/Maven__org_attoparser_attoparser_2_0_5_RELEASE.xml
+deleted file mode 100644
+--- a/.idea/libraries/Maven__org_attoparser_attoparser_2_0_5_RELEASE.xml	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ /dev/null	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
+@@ -1,13 +0,0 @@
+-<component name="libraryTable">
+-  <library name="Maven: org.attoparser:attoparser:2.0.5.RELEASE">
+-    <CLASSES>
+-      <root url="jar://E:/maven_repository/org/attoparser/attoparser/2.0.5.RELEASE/attoparser-2.0.5.RELEASE.jar!/" />
+-    </CLASSES>
+-    <JAVADOC>
+-      <root url="jar://E:/maven_repository/org/attoparser/attoparser/2.0.5.RELEASE/attoparser-2.0.5.RELEASE-javadoc.jar!/" />
+-    </JAVADOC>
+-    <SOURCES>
+-      <root url="jar://E:/maven_repository/org/attoparser/attoparser/2.0.5.RELEASE/attoparser-2.0.5.RELEASE-sources.jar!/" />
+-    </SOURCES>
+-  </library>
+-</component>
+\ No newline at end of file
+Index: .idea/libraries/Maven__org_springframework_spring_jdbc_5_2_7_RELEASE.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/libraries/Maven__org_springframework_spring_jdbc_5_2_7_RELEASE.xml b/.idea/libraries/Maven__org_springframework_spring_jdbc_5_2_7_RELEASE.xml
+deleted file mode 100644
+--- a/.idea/libraries/Maven__org_springframework_spring_jdbc_5_2_7_RELEASE.xml	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ /dev/null	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
+@@ -1,13 +0,0 @@
+-<component name="libraryTable">
+-  <library name="Maven: org.springframework:spring-jdbc:5.2.7.RELEASE">
+-    <CLASSES>
+-      <root url="jar://E:/maven_repository/org/springframework/spring-jdbc/5.2.7.RELEASE/spring-jdbc-5.2.7.RELEASE.jar!/" />
+-    </CLASSES>
+-    <JAVADOC>
+-      <root url="jar://E:/maven_repository/org/springframework/spring-jdbc/5.2.7.RELEASE/spring-jdbc-5.2.7.RELEASE-javadoc.jar!/" />
+-    </JAVADOC>
+-    <SOURCES>
+-      <root url="jar://E:/maven_repository/org/springframework/spring-jdbc/5.2.7.RELEASE/spring-jdbc-5.2.7.RELEASE-sources.jar!/" />
+-    </SOURCES>
+-  </library>
+-</component>
+\ No newline at end of file
+Index: .idea/libraries/Maven__org_mybatis_mybatis_spring_1_3_1.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/libraries/Maven__org_mybatis_mybatis_spring_1_3_1.xml b/.idea/libraries/Maven__org_mybatis_mybatis_spring_1_3_1.xml
+deleted file mode 100644
+--- a/.idea/libraries/Maven__org_mybatis_mybatis_spring_1_3_1.xml	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ /dev/null	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
+@@ -1,13 +0,0 @@
+-<component name="libraryTable">
+-  <library name="Maven: org.mybatis:mybatis-spring:1.3.1">
+-    <CLASSES>
+-      <root url="jar://E:/maven_repository/org/mybatis/mybatis-spring/1.3.1/mybatis-spring-1.3.1.jar!/" />
+-    </CLASSES>
+-    <JAVADOC>
+-      <root url="jar://E:/maven_repository/org/mybatis/mybatis-spring/1.3.1/mybatis-spring-1.3.1-javadoc.jar!/" />
+-    </JAVADOC>
+-    <SOURCES>
+-      <root url="jar://E:/maven_repository/org/mybatis/mybatis-spring/1.3.1/mybatis-spring-1.3.1-sources.jar!/" />
+-    </SOURCES>
+-  </library>
+-</component>
+\ No newline at end of file
+Index: .idea/libraries/Maven__org_springframework_spring_core_5_2_7_RELEASE.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/libraries/Maven__org_springframework_spring_core_5_2_7_RELEASE.xml b/.idea/libraries/Maven__org_springframework_spring_core_5_2_7_RELEASE.xml
+deleted file mode 100644
+--- a/.idea/libraries/Maven__org_springframework_spring_core_5_2_7_RELEASE.xml	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ /dev/null	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
+@@ -1,13 +0,0 @@
+-<component name="libraryTable">
+-  <library name="Maven: org.springframework:spring-core:5.2.7.RELEASE">
+-    <CLASSES>
+-      <root url="jar://E:/maven_repository/org/springframework/spring-core/5.2.7.RELEASE/spring-core-5.2.7.RELEASE.jar!/" />
+-    </CLASSES>
+-    <JAVADOC>
+-      <root url="jar://E:/maven_repository/org/springframework/spring-core/5.2.7.RELEASE/spring-core-5.2.7.RELEASE-javadoc.jar!/" />
+-    </JAVADOC>
+-    <SOURCES>
+-      <root url="jar://E:/maven_repository/org/springframework/spring-core/5.2.7.RELEASE/spring-core-5.2.7.RELEASE-sources.jar!/" />
+-    </SOURCES>
+-  </library>
+-</component>
+\ No newline at end of file
+Index: .idea/libraries/Maven__org_springframework_spring_aspects_5_2_7_RELEASE.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/libraries/Maven__org_springframework_spring_aspects_5_2_7_RELEASE.xml b/.idea/libraries/Maven__org_springframework_spring_aspects_5_2_7_RELEASE.xml
+deleted file mode 100644
+--- a/.idea/libraries/Maven__org_springframework_spring_aspects_5_2_7_RELEASE.xml	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ /dev/null	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
+@@ -1,13 +0,0 @@
+-<component name="libraryTable">
+-  <library name="Maven: org.springframework:spring-aspects:5.2.7.RELEASE">
+-    <CLASSES>
+-      <root url="jar://E:/maven_repository/org/springframework/spring-aspects/5.2.7.RELEASE/spring-aspects-5.2.7.RELEASE.jar!/" />
+-    </CLASSES>
+-    <JAVADOC>
+-      <root url="jar://E:/maven_repository/org/springframework/spring-aspects/5.2.7.RELEASE/spring-aspects-5.2.7.RELEASE-javadoc.jar!/" />
+-    </JAVADOC>
+-    <SOURCES>
+-      <root url="jar://E:/maven_repository/org/springframework/spring-aspects/5.2.7.RELEASE/spring-aspects-5.2.7.RELEASE-sources.jar!/" />
+-    </SOURCES>
+-  </library>
+-</component>
+\ No newline at end of file
+Index: .idea/libraries/Maven__com_google_protobuf_protobuf_java_3_6_1.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/libraries/Maven__com_google_protobuf_protobuf_java_3_6_1.xml b/.idea/libraries/Maven__com_google_protobuf_protobuf_java_3_6_1.xml
+deleted file mode 100644
+--- a/.idea/libraries/Maven__com_google_protobuf_protobuf_java_3_6_1.xml	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ /dev/null	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
+@@ -1,13 +0,0 @@
+-<component name="libraryTable">
+-  <library name="Maven: com.google.protobuf:protobuf-java:3.6.1">
+-    <CLASSES>
+-      <root url="jar://E:/maven_repository/com/google/protobuf/protobuf-java/3.6.1/protobuf-java-3.6.1.jar!/" />
+-    </CLASSES>
+-    <JAVADOC>
+-      <root url="jar://E:/maven_repository/com/google/protobuf/protobuf-java/3.6.1/protobuf-java-3.6.1-javadoc.jar!/" />
+-    </JAVADOC>
+-    <SOURCES>
+-      <root url="jar://E:/maven_repository/com/google/protobuf/protobuf-java/3.6.1/protobuf-java-3.6.1-sources.jar!/" />
+-    </SOURCES>
+-  </library>
+-</component>
+\ No newline at end of file
+Index: .idea/libraries/Maven__commons_io_commons_io_2_2.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/libraries/Maven__commons_io_commons_io_2_2.xml b/.idea/libraries/Maven__commons_io_commons_io_2_2.xml
+deleted file mode 100644
+--- a/.idea/libraries/Maven__commons_io_commons_io_2_2.xml	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ /dev/null	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
+@@ -1,13 +0,0 @@
+-<component name="libraryTable">
+-  <library name="Maven: commons-io:commons-io:2.2">
+-    <CLASSES>
+-      <root url="jar://E:/maven_repository/commons-io/commons-io/2.2/commons-io-2.2.jar!/" />
+-    </CLASSES>
+-    <JAVADOC>
+-      <root url="jar://E:/maven_repository/commons-io/commons-io/2.2/commons-io-2.2-javadoc.jar!/" />
+-    </JAVADOC>
+-    <SOURCES>
+-      <root url="jar://E:/maven_repository/commons-io/commons-io/2.2/commons-io-2.2-sources.jar!/" />
+-    </SOURCES>
+-  </library>
+-</component>
+\ No newline at end of file
+Index: .idea/libraries/Maven__org_aspectj_aspectjweaver_1_9_5.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/libraries/Maven__org_aspectj_aspectjweaver_1_9_5.xml b/.idea/libraries/Maven__org_aspectj_aspectjweaver_1_9_5.xml
+deleted file mode 100644
+--- a/.idea/libraries/Maven__org_aspectj_aspectjweaver_1_9_5.xml	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ /dev/null	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
+@@ -1,13 +0,0 @@
+-<component name="libraryTable">
+-  <library name="Maven: org.aspectj:aspectjweaver:1.9.5">
+-    <CLASSES>
+-      <root url="jar://E:/maven_repository/org/aspectj/aspectjweaver/1.9.5/aspectjweaver-1.9.5.jar!/" />
+-    </CLASSES>
+-    <JAVADOC>
+-      <root url="jar://E:/maven_repository/org/aspectj/aspectjweaver/1.9.5/aspectjweaver-1.9.5-javadoc.jar!/" />
+-    </JAVADOC>
+-    <SOURCES>
+-      <root url="jar://E:/maven_repository/org/aspectj/aspectjweaver/1.9.5/aspectjweaver-1.9.5-sources.jar!/" />
+-    </SOURCES>
+-  </library>
+-</component>
+\ No newline at end of file
+Index: .idea/libraries/Maven__org_unbescape_unbescape_1_1_6_RELEASE.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/libraries/Maven__org_unbescape_unbescape_1_1_6_RELEASE.xml b/.idea/libraries/Maven__org_unbescape_unbescape_1_1_6_RELEASE.xml
+deleted file mode 100644
+--- a/.idea/libraries/Maven__org_unbescape_unbescape_1_1_6_RELEASE.xml	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ /dev/null	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
+@@ -1,13 +0,0 @@
+-<component name="libraryTable">
+-  <library name="Maven: org.unbescape:unbescape:1.1.6.RELEASE">
+-    <CLASSES>
+-      <root url="jar://E:/maven_repository/org/unbescape/unbescape/1.1.6.RELEASE/unbescape-1.1.6.RELEASE.jar!/" />
+-    </CLASSES>
+-    <JAVADOC>
+-      <root url="jar://E:/maven_repository/org/unbescape/unbescape/1.1.6.RELEASE/unbescape-1.1.6.RELEASE-javadoc.jar!/" />
+-    </JAVADOC>
+-    <SOURCES>
+-      <root url="jar://E:/maven_repository/org/unbescape/unbescape/1.1.6.RELEASE/unbescape-1.1.6.RELEASE-sources.jar!/" />
+-    </SOURCES>
+-  </library>
+-</component>
+\ No newline at end of file
+Index: .idea/jarRepositories.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/jarRepositories.xml b/.idea/jarRepositories.xml
+deleted file mode 100644
+--- a/.idea/jarRepositories.xml	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ /dev/null	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
+@@ -1,20 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="RemoteRepositoriesConfiguration">
+-    <remote-repository>
+-      <option name="id" value="central" />
+-      <option name="name" value="Central Repository" />
+-      <option name="url" value="https://repo.maven.apache.org/maven2" />
+-    </remote-repository>
+-    <remote-repository>
+-      <option name="id" value="central" />
+-      <option name="name" value="Maven Central repository" />
+-      <option name="url" value="https://repo1.maven.org/maven2" />
+-    </remote-repository>
+-    <remote-repository>
+-      <option name="id" value="jboss.community" />
+-      <option name="name" value="JBoss Community repository" />
+-      <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
+-    </remote-repository>
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/libraries/Maven__commons_fileupload_commons_fileupload_1_3_1.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/libraries/Maven__commons_fileupload_commons_fileupload_1_3_1.xml b/.idea/libraries/Maven__commons_fileupload_commons_fileupload_1_3_1.xml
+deleted file mode 100644
+--- a/.idea/libraries/Maven__commons_fileupload_commons_fileupload_1_3_1.xml	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ /dev/null	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
+@@ -1,13 +0,0 @@
+-<component name="libraryTable">
+-  <library name="Maven: commons-fileupload:commons-fileupload:1.3.1">
+-    <CLASSES>
+-      <root url="jar://E:/maven_repository/commons-fileupload/commons-fileupload/1.3.1/commons-fileupload-1.3.1.jar!/" />
+-    </CLASSES>
+-    <JAVADOC>
+-      <root url="jar://E:/maven_repository/commons-fileupload/commons-fileupload/1.3.1/commons-fileupload-1.3.1-javadoc.jar!/" />
+-    </JAVADOC>
+-    <SOURCES>
+-      <root url="jar://E:/maven_repository/commons-fileupload/commons-fileupload/1.3.1/commons-fileupload-1.3.1-sources.jar!/" />
+-    </SOURCES>
+-  </library>
+-</component>
+\ No newline at end of file
+Index: .idea/libraries/Maven__org_springframework_spring_beans_5_2_7_RELEASE.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/libraries/Maven__org_springframework_spring_beans_5_2_7_RELEASE.xml b/.idea/libraries/Maven__org_springframework_spring_beans_5_2_7_RELEASE.xml
+deleted file mode 100644
+--- a/.idea/libraries/Maven__org_springframework_spring_beans_5_2_7_RELEASE.xml	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ /dev/null	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
+@@ -1,13 +0,0 @@
+-<component name="libraryTable">
+-  <library name="Maven: org.springframework:spring-beans:5.2.7.RELEASE">
+-    <CLASSES>
+-      <root url="jar://E:/maven_repository/org/springframework/spring-beans/5.2.7.RELEASE/spring-beans-5.2.7.RELEASE.jar!/" />
+-    </CLASSES>
+-    <JAVADOC>
+-      <root url="jar://E:/maven_repository/org/springframework/spring-beans/5.2.7.RELEASE/spring-beans-5.2.7.RELEASE-javadoc.jar!/" />
+-    </JAVADOC>
+-    <SOURCES>
+-      <root url="jar://E:/maven_repository/org/springframework/spring-beans/5.2.7.RELEASE/spring-beans-5.2.7.RELEASE-sources.jar!/" />
+-    </SOURCES>
+-  </library>
+-</component>
+\ No newline at end of file
+Index: .idea/modules.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/modules.xml b/.idea/modules.xml
+deleted file mode 100644
+--- a/.idea/modules.xml	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ /dev/null	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
+@@ -1,11 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="ProjectModuleManager">
+-    <modules>
+-      <module fileurl="file://$PROJECT_DIR$/common-util/common-util.iml" filepath="$PROJECT_DIR$/common-util/common-util.iml" />
+-      <module fileurl="file://$PROJECT_DIR$/model/model.iml" filepath="$PROJECT_DIR$/model/model.iml" />
+-      <module fileurl="file://$PROJECT_DIR$/web-admin/web-admin.iml" filepath="$PROJECT_DIR$/web-admin/web-admin.iml" />
+-      <module fileurl="file://$PROJECT_DIR$/wuye-parent.iml" filepath="$PROJECT_DIR$/wuye-parent.iml" />
+-    </modules>
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/dataSources/2800e6b2-bc5f-484e-82b3-5758be8c34e3.xml
+===================================================================
+diff --git a/.idea/dataSources/2800e6b2-bc5f-484e-82b3-5758be8c34e3.xml b/.idea/dataSources/2800e6b2-bc5f-484e-82b3-5758be8c34e3.xml
+deleted file mode 100644
+--- a/.idea/dataSources/2800e6b2-bc5f-484e-82b3-5758be8c34e3.xml	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ /dev/null	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
+@@ -1,2097 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<dataSource name="wuye">
+-  <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.45">
+-    <root id="1">
+-      <DefaultCasing>lower/lower</DefaultCasing>
+-      <DefaultEngine>InnoDB</DefaultEngine>
+-      <DefaultTmpEngine>InnoDB</DefaultTmpEngine>
+-      <Grants>|root||root|localhost|ALTER|G
+-|root||root|localhost|ALTER ROUTINE|G
+-|root||root|localhost|APPLICATION_PASSWORD_ADMIN|G
+-|root||mysql.infoschema|localhost|AUDIT_ABORT_EXEMPT|G
+-|root||mysql.session|localhost|AUDIT_ABORT_EXEMPT|G
+-|root||mysql.sys|localhost|AUDIT_ABORT_EXEMPT|G
+-|root||root|localhost|AUDIT_ABORT_EXEMPT|G
+-|root||root|localhost|AUDIT_ADMIN|G
+-|root||mysql.session|localhost|AUTHENTICATION_POLICY_ADMIN|G
+-|root||root|localhost|AUTHENTICATION_POLICY_ADMIN|G
+-|root||mysql.session|localhost|BACKUP_ADMIN|G
+-|root||root|localhost|BACKUP_ADMIN|G
+-|root||root|localhost|BINLOG_ADMIN|G
+-|root||root|localhost|BINLOG_ENCRYPTION_ADMIN|G
+-|root||mysql.session|localhost|CLONE_ADMIN|G
+-|root||root|localhost|CLONE_ADMIN|G
+-|root||mysql.session|localhost|CONNECTION_ADMIN|G
+-|root||root|localhost|CONNECTION_ADMIN|G
+-|root||root|localhost|CREATE|G
+-|root||root|localhost|CREATE ROLE|G
+-|root||root|localhost|CREATE ROUTINE|G
+-|root||root|localhost|CREATE TABLESPACE|G
+-|root||root|localhost|CREATE TEMPORARY TABLES|G
+-|root||root|localhost|CREATE USER|G
+-|root||root|localhost|CREATE VIEW|G
+-|root||root|localhost|DELETE|G
+-|root||root|localhost|DROP|G
+-|root||root|localhost|DROP ROLE|G
+-|root||root|localhost|ENCRYPTION_KEY_ADMIN|G
+-|root||root|localhost|EVENT|G
+-|root||root|localhost|EXECUTE|G
+-|root||root|localhost|FILE|G
+-|root||mysql.infoschema|localhost|FIREWALL_EXEMPT|G
+-|root||mysql.session|localhost|FIREWALL_EXEMPT|G
+-|root||mysql.sys|localhost|FIREWALL_EXEMPT|G
+-|root||root|localhost|FIREWALL_EXEMPT|G
+-|root||root|localhost|FLUSH_OPTIMIZER_COSTS|G
+-|root||root|localhost|FLUSH_STATUS|G
+-|root||root|localhost|FLUSH_TABLES|G
+-|root||root|localhost|FLUSH_USER_RESOURCES|G
+-|root||root|localhost|GROUP_REPLICATION_ADMIN|G
+-|root||root|localhost|GROUP_REPLICATION_STREAM|G
+-|root||root|localhost|INDEX|G
+-|root||root|localhost|INNODB_REDO_LOG_ARCHIVE|G
+-|root||root|localhost|INNODB_REDO_LOG_ENABLE|G
+-|root||root|localhost|INSERT|G
+-|root||root|localhost|LOCK TABLES|G
+-|root||root|localhost|PASSWORDLESS_USER_ADMIN|G
+-|root||mysql.session|localhost|PERSIST_RO_VARIABLES_ADMIN|G
+-|root||root|localhost|PERSIST_RO_VARIABLES_ADMIN|G
+-|root||root|localhost|PROCESS|G
+-|root||root|localhost|REFERENCES|G
+-|root||root|localhost|RELOAD|G
+-|root||root|localhost|REPLICATION CLIENT|G
+-|root||root|localhost|REPLICATION SLAVE|G
+-|root||root|localhost|REPLICATION_APPLIER|G
+-|root||root|localhost|REPLICATION_SLAVE_ADMIN|G
+-|root||root|localhost|RESOURCE_GROUP_ADMIN|G
+-|root||root|localhost|RESOURCE_GROUP_USER|G
+-|root||root|localhost|ROLE_ADMIN|G
+-|root||mysql.infoschema|localhost|SELECT|G
+-|root||root|localhost|SELECT|G
+-|root||root|localhost|SENSITIVE_VARIABLES_OBSERVER|G
+-|root||root|localhost|SERVICE_CONNECTION_ADMIN|G
+-|root||mysql.session|localhost|SESSION_VARIABLES_ADMIN|G
+-|root||root|localhost|SESSION_VARIABLES_ADMIN|G
+-|root||root|localhost|SET_USER_ID|G
+-|root||root|localhost|SHOW DATABASES|G
+-|root||root|localhost|SHOW VIEW|G
+-|root||root|localhost|SHOW_ROUTINE|G
+-|root||mysql.session|localhost|SHUTDOWN|G
+-|root||root|localhost|SHUTDOWN|G
+-|root||mysql.session|localhost|SUPER|G
+-|root||root|localhost|SUPER|G
+-|root||mysql.infoschema|localhost|SYSTEM_USER|G
+-|root||mysql.session|localhost|SYSTEM_USER|G
+-|root||mysql.sys|localhost|SYSTEM_USER|G
+-|root||root|localhost|SYSTEM_USER|G
+-|root||mysql.session|localhost|SYSTEM_VARIABLES_ADMIN|G
+-|root||root|localhost|SYSTEM_VARIABLES_ADMIN|G
+-|root||root|localhost|TABLE_ENCRYPTION_ADMIN|G
+-|root||root|localhost|TRIGGER|G
+-|root||root|localhost|UPDATE|G
+-|root||root|localhost|XA_RECOVER_ADMIN|G
+-|root||root|localhost|grant option|G
+-performance_schema|schema||mysql.session|localhost|SELECT|G
+-sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
+-      <ServerVersion>8.0.31</ServerVersion>
+-    </root>
+-    <collation id="2" parent="1" name="armscii8_bin">
+-      <Charset>armscii8</Charset>
+-    </collation>
+-    <collation id="3" parent="1" name="armscii8_general_ci">
+-      <Charset>armscii8</Charset>
+-      <DefaultForCharset>1</DefaultForCharset>
+-    </collation>
+-    <collation id="4" parent="1" name="ascii_bin">
+-      <Charset>ascii</Charset>
+-    </collation>
+-    <collation id="5" parent="1" name="ascii_general_ci">
+-      <Charset>ascii</Charset>
+-      <DefaultForCharset>1</DefaultForCharset>
+-    </collation>
+-    <collation id="6" parent="1" name="big5_bin">
+-      <Charset>big5</Charset>
+-    </collation>
+-    <collation id="7" parent="1" name="big5_chinese_ci">
+-      <Charset>big5</Charset>
+-      <DefaultForCharset>1</DefaultForCharset>
+-    </collation>
+-    <collation id="8" parent="1" name="binary">
+-      <Charset>binary</Charset>
+-      <DefaultForCharset>1</DefaultForCharset>
+-    </collation>
+-    <collation id="9" parent="1" name="cp1250_bin">
+-      <Charset>cp1250</Charset>
+-    </collation>
+-    <collation id="10" parent="1" name="cp1250_croatian_ci">
+-      <Charset>cp1250</Charset>
+-    </collation>
+-    <collation id="11" parent="1" name="cp1250_czech_cs">
+-      <Charset>cp1250</Charset>
+-    </collation>
+-    <collation id="12" parent="1" name="cp1250_general_ci">
+-      <Charset>cp1250</Charset>
+-      <DefaultForCharset>1</DefaultForCharset>
+-    </collation>
+-    <collation id="13" parent="1" name="cp1250_polish_ci">
+-      <Charset>cp1250</Charset>
+-    </collation>
+-    <collation id="14" parent="1" name="cp1251_bin">
+-      <Charset>cp1251</Charset>
+-    </collation>
+-    <collation id="15" parent="1" name="cp1251_bulgarian_ci">
+-      <Charset>cp1251</Charset>
+-    </collation>
+-    <collation id="16" parent="1" name="cp1251_general_ci">
+-      <Charset>cp1251</Charset>
+-      <DefaultForCharset>1</DefaultForCharset>
+-    </collation>
+-    <collation id="17" parent="1" name="cp1251_general_cs">
+-      <Charset>cp1251</Charset>
+-    </collation>
+-    <collation id="18" parent="1" name="cp1251_ukrainian_ci">
+-      <Charset>cp1251</Charset>
+-    </collation>
+-    <collation id="19" parent="1" name="cp1256_bin">
+-      <Charset>cp1256</Charset>
+-    </collation>
+-    <collation id="20" parent="1" name="cp1256_general_ci">
+-      <Charset>cp1256</Charset>
+-      <DefaultForCharset>1</DefaultForCharset>
+-    </collation>
+-    <collation id="21" parent="1" name="cp1257_bin">
+-      <Charset>cp1257</Charset>
+-    </collation>
+-    <collation id="22" parent="1" name="cp1257_general_ci">
+-      <Charset>cp1257</Charset>
+-      <DefaultForCharset>1</DefaultForCharset>
+-    </collation>
+-    <collation id="23" parent="1" name="cp1257_lithuanian_ci">
+-      <Charset>cp1257</Charset>
+-    </collation>
+-    <collation id="24" parent="1" name="cp850_bin">
+-      <Charset>cp850</Charset>
+-    </collation>
+-    <collation id="25" parent="1" name="cp850_general_ci">
+-      <Charset>cp850</Charset>
+-      <DefaultForCharset>1</DefaultForCharset>
+-    </collation>
+-    <collation id="26" parent="1" name="cp852_bin">
+-      <Charset>cp852</Charset>
+-    </collation>
+-    <collation id="27" parent="1" name="cp852_general_ci">
+-      <Charset>cp852</Charset>
+-      <DefaultForCharset>1</DefaultForCharset>
+-    </collation>
+-    <collation id="28" parent="1" name="cp866_bin">
+-      <Charset>cp866</Charset>
+-    </collation>
+-    <collation id="29" parent="1" name="cp866_general_ci">
+-      <Charset>cp866</Charset>
+-      <DefaultForCharset>1</DefaultForCharset>
+-    </collation>
+-    <collation id="30" parent="1" name="cp932_bin">
+-      <Charset>cp932</Charset>
+-    </collation>
+-    <collation id="31" parent="1" name="cp932_japanese_ci">
+-      <Charset>cp932</Charset>
+-      <DefaultForCharset>1</DefaultForCharset>
+-    </collation>
+-    <collation id="32" parent="1" name="dec8_bin">
+-      <Charset>dec8</Charset>
+-    </collation>
+-    <collation id="33" parent="1" name="dec8_swedish_ci">
+-      <Charset>dec8</Charset>
+-      <DefaultForCharset>1</DefaultForCharset>
+-    </collation>
+-    <collation id="34" parent="1" name="eucjpms_bin">
+-      <Charset>eucjpms</Charset>
+-    </collation>
+-    <collation id="35" parent="1" name="eucjpms_japanese_ci">
+-      <Charset>eucjpms</Charset>
+-      <DefaultForCharset>1</DefaultForCharset>
+-    </collation>
+-    <collation id="36" parent="1" name="euckr_bin">
+-      <Charset>euckr</Charset>
+-    </collation>
+-    <collation id="37" parent="1" name="euckr_korean_ci">
+-      <Charset>euckr</Charset>
+-      <DefaultForCharset>1</DefaultForCharset>
+-    </collation>
+-    <collation id="38" parent="1" name="gb18030_bin">
+-      <Charset>gb18030</Charset>
+-    </collation>
+-    <collation id="39" parent="1" name="gb18030_chinese_ci">
+-      <Charset>gb18030</Charset>
+-      <DefaultForCharset>1</DefaultForCharset>
+-    </collation>
+-    <collation id="40" parent="1" name="gb18030_unicode_520_ci">
+-      <Charset>gb18030</Charset>
+-    </collation>
+-    <collation id="41" parent="1" name="gb2312_bin">
+-      <Charset>gb2312</Charset>
+-    </collation>
+-    <collation id="42" parent="1" name="gb2312_chinese_ci">
+-      <Charset>gb2312</Charset>
+-      <DefaultForCharset>1</DefaultForCharset>
+-    </collation>
+-    <collation id="43" parent="1" name="gbk_bin">
+-      <Charset>gbk</Charset>
+-    </collation>
+-    <collation id="44" parent="1" name="gbk_chinese_ci">
+-      <Charset>gbk</Charset>
+-      <DefaultForCharset>1</DefaultForCharset>
+-    </collation>
+-    <collation id="45" parent="1" name="geostd8_bin">
+-      <Charset>geostd8</Charset>
+-    </collation>
+-    <collation id="46" parent="1" name="geostd8_general_ci">
+-      <Charset>geostd8</Charset>
+-      <DefaultForCharset>1</DefaultForCharset>
+-    </collation>
+-    <collation id="47" parent="1" name="greek_bin">
+-      <Charset>greek</Charset>
+-    </collation>
+-    <collation id="48" parent="1" name="greek_general_ci">
+-      <Charset>greek</Charset>
+-      <DefaultForCharset>1</DefaultForCharset>
+-    </collation>
+-    <collation id="49" parent="1" name="hebrew_bin">
+-      <Charset>hebrew</Charset>
+-    </collation>
+-    <collation id="50" parent="1" name="hebrew_general_ci">
+-      <Charset>hebrew</Charset>
+-      <DefaultForCharset>1</DefaultForCharset>
+-    </collation>
+-    <collation id="51" parent="1" name="hp8_bin">
+-      <Charset>hp8</Charset>
+-    </collation>
+-    <collation id="52" parent="1" name="hp8_english_ci">
+-      <Charset>hp8</Charset>
+-      <DefaultForCharset>1</DefaultForCharset>
+-    </collation>
+-    <collation id="53" parent="1" name="keybcs2_bin">
+-      <Charset>keybcs2</Charset>
+-    </collation>
+-    <collation id="54" parent="1" name="keybcs2_general_ci">
+-      <Charset>keybcs2</Charset>
+-      <DefaultForCharset>1</DefaultForCharset>
+-    </collation>
+-    <collation id="55" parent="1" name="koi8r_bin">
+-      <Charset>koi8r</Charset>
+-    </collation>
+-    <collation id="56" parent="1" name="koi8r_general_ci">
+-      <Charset>koi8r</Charset>
+-      <DefaultForCharset>1</DefaultForCharset>
+-    </collation>
+-    <collation id="57" parent="1" name="koi8u_bin">
+-      <Charset>koi8u</Charset>
+-    </collation>
+-    <collation id="58" parent="1" name="koi8u_general_ci">
+-      <Charset>koi8u</Charset>
+-      <DefaultForCharset>1</DefaultForCharset>
+-    </collation>
+-    <collation id="59" parent="1" name="latin1_bin">
+-      <Charset>latin1</Charset>
+-    </collation>
+-    <collation id="60" parent="1" name="latin1_danish_ci">
+-      <Charset>latin1</Charset>
+-    </collation>
+-    <collation id="61" parent="1" name="latin1_general_ci">
+-      <Charset>latin1</Charset>
+-    </collation>
+-    <collation id="62" parent="1" name="latin1_general_cs">
+-      <Charset>latin1</Charset>
+-    </collation>
+-    <collation id="63" parent="1" name="latin1_german1_ci">
+-      <Charset>latin1</Charset>
+-    </collation>
+-    <collation id="64" parent="1" name="latin1_german2_ci">
+-      <Charset>latin1</Charset>
+-    </collation>
+-    <collation id="65" parent="1" name="latin1_spanish_ci">
+-      <Charset>latin1</Charset>
+-    </collation>
+-    <collation id="66" parent="1" name="latin1_swedish_ci">
+-      <Charset>latin1</Charset>
+-      <DefaultForCharset>1</DefaultForCharset>
+-    </collation>
+-    <collation id="67" parent="1" name="latin2_bin">
+-      <Charset>latin2</Charset>
+-    </collation>
+-    <collation id="68" parent="1" name="latin2_croatian_ci">
+-      <Charset>latin2</Charset>
+-    </collation>
+-    <collation id="69" parent="1" name="latin2_czech_cs">
+-      <Charset>latin2</Charset>
+-    </collation>
+-    <collation id="70" parent="1" name="latin2_general_ci">
+-      <Charset>latin2</Charset>
+-      <DefaultForCharset>1</DefaultForCharset>
+-    </collation>
+-    <collation id="71" parent="1" name="latin2_hungarian_ci">
+-      <Charset>latin2</Charset>
+-    </collation>
+-    <collation id="72" parent="1" name="latin5_bin">
+-      <Charset>latin5</Charset>
+-    </collation>
+-    <collation id="73" parent="1" name="latin5_turkish_ci">
+-      <Charset>latin5</Charset>
+-      <DefaultForCharset>1</DefaultForCharset>
+-    </collation>
+-    <collation id="74" parent="1" name="latin7_bin">
+-      <Charset>latin7</Charset>
+-    </collation>
+-    <collation id="75" parent="1" name="latin7_estonian_cs">
+-      <Charset>latin7</Charset>
+-    </collation>
+-    <collation id="76" parent="1" name="latin7_general_ci">
+-      <Charset>latin7</Charset>
+-      <DefaultForCharset>1</DefaultForCharset>
+-    </collation>
+-    <collation id="77" parent="1" name="latin7_general_cs">
+-      <Charset>latin7</Charset>
+-    </collation>
+-    <collation id="78" parent="1" name="macce_bin">
+-      <Charset>macce</Charset>
+-    </collation>
+-    <collation id="79" parent="1" name="macce_general_ci">
+-      <Charset>macce</Charset>
+-      <DefaultForCharset>1</DefaultForCharset>
+-    </collation>
+-    <collation id="80" parent="1" name="macroman_bin">
+-      <Charset>macroman</Charset>
+-    </collation>
+-    <collation id="81" parent="1" name="macroman_general_ci">
+-      <Charset>macroman</Charset>
+-      <DefaultForCharset>1</DefaultForCharset>
+-    </collation>
+-    <collation id="82" parent="1" name="sjis_bin">
+-      <Charset>sjis</Charset>
+-    </collation>
+-    <collation id="83" parent="1" name="sjis_japanese_ci">
+-      <Charset>sjis</Charset>
+-      <DefaultForCharset>1</DefaultForCharset>
+-    </collation>
+-    <collation id="84" parent="1" name="swe7_bin">
+-      <Charset>swe7</Charset>
+-    </collation>
+-    <collation id="85" parent="1" name="swe7_swedish_ci">
+-      <Charset>swe7</Charset>
+-      <DefaultForCharset>1</DefaultForCharset>
+-    </collation>
+-    <collation id="86" parent="1" name="tis620_bin">
+-      <Charset>tis620</Charset>
+-    </collation>
+-    <collation id="87" parent="1" name="tis620_thai_ci">
+-      <Charset>tis620</Charset>
+-      <DefaultForCharset>1</DefaultForCharset>
+-    </collation>
+-    <collation id="88" parent="1" name="ucs2_bin">
+-      <Charset>ucs2</Charset>
+-    </collation>
+-    <collation id="89" parent="1" name="ucs2_croatian_ci">
+-      <Charset>ucs2</Charset>
+-    </collation>
+-    <collation id="90" parent="1" name="ucs2_czech_ci">
+-      <Charset>ucs2</Charset>
+-    </collation>
+-    <collation id="91" parent="1" name="ucs2_danish_ci">
+-      <Charset>ucs2</Charset>
+-    </collation>
+-    <collation id="92" parent="1" name="ucs2_esperanto_ci">
+-      <Charset>ucs2</Charset>
+-    </collation>
+-    <collation id="93" parent="1" name="ucs2_estonian_ci">
+-      <Charset>ucs2</Charset>
+-    </collation>
+-    <collation id="94" parent="1" name="ucs2_general_ci">
+-      <Charset>ucs2</Charset>
+-      <DefaultForCharset>1</DefaultForCharset>
+-    </collation>
+-    <collation id="95" parent="1" name="ucs2_general_mysql500_ci">
+-      <Charset>ucs2</Charset>
+-    </collation>
+-    <collation id="96" parent="1" name="ucs2_german2_ci">
+-      <Charset>ucs2</Charset>
+-    </collation>
+-    <collation id="97" parent="1" name="ucs2_hungarian_ci">
+-      <Charset>ucs2</Charset>
+-    </collation>
+-    <collation id="98" parent="1" name="ucs2_icelandic_ci">
+-      <Charset>ucs2</Charset>
+-    </collation>
+-    <collation id="99" parent="1" name="ucs2_latvian_ci">
+-      <Charset>ucs2</Charset>
+-    </collation>
+-    <collation id="100" parent="1" name="ucs2_lithuanian_ci">
+-      <Charset>ucs2</Charset>
+-    </collation>
+-    <collation id="101" parent="1" name="ucs2_persian_ci">
+-      <Charset>ucs2</Charset>
+-    </collation>
+-    <collation id="102" parent="1" name="ucs2_polish_ci">
+-      <Charset>ucs2</Charset>
+-    </collation>
+-    <collation id="103" parent="1" name="ucs2_roman_ci">
+-      <Charset>ucs2</Charset>
+-    </collation>
+-    <collation id="104" parent="1" name="ucs2_romanian_ci">
+-      <Charset>ucs2</Charset>
+-    </collation>
+-    <collation id="105" parent="1" name="ucs2_sinhala_ci">
+-      <Charset>ucs2</Charset>
+-    </collation>
+-    <collation id="106" parent="1" name="ucs2_slovak_ci">
+-      <Charset>ucs2</Charset>
+-    </collation>
+-    <collation id="107" parent="1" name="ucs2_slovenian_ci">
+-      <Charset>ucs2</Charset>
+-    </collation>
+-    <collation id="108" parent="1" name="ucs2_spanish2_ci">
+-      <Charset>ucs2</Charset>
+-    </collation>
+-    <collation id="109" parent="1" name="ucs2_spanish_ci">
+-      <Charset>ucs2</Charset>
+-    </collation>
+-    <collation id="110" parent="1" name="ucs2_swedish_ci">
+-      <Charset>ucs2</Charset>
+-    </collation>
+-    <collation id="111" parent="1" name="ucs2_turkish_ci">
+-      <Charset>ucs2</Charset>
+-    </collation>
+-    <collation id="112" parent="1" name="ucs2_unicode_520_ci">
+-      <Charset>ucs2</Charset>
+-    </collation>
+-    <collation id="113" parent="1" name="ucs2_unicode_ci">
+-      <Charset>ucs2</Charset>
+-    </collation>
+-    <collation id="114" parent="1" name="ucs2_vietnamese_ci">
+-      <Charset>ucs2</Charset>
+-    </collation>
+-    <collation id="115" parent="1" name="ujis_bin">
+-      <Charset>ujis</Charset>
+-    </collation>
+-    <collation id="116" parent="1" name="ujis_japanese_ci">
+-      <Charset>ujis</Charset>
+-      <DefaultForCharset>1</DefaultForCharset>
+-    </collation>
+-    <collation id="117" parent="1" name="utf16_bin">
+-      <Charset>utf16</Charset>
+-    </collation>
+-    <collation id="118" parent="1" name="utf16_croatian_ci">
+-      <Charset>utf16</Charset>
+-    </collation>
+-    <collation id="119" parent="1" name="utf16_czech_ci">
+-      <Charset>utf16</Charset>
+-    </collation>
+-    <collation id="120" parent="1" name="utf16_danish_ci">
+-      <Charset>utf16</Charset>
+-    </collation>
+-    <collation id="121" parent="1" name="utf16_esperanto_ci">
+-      <Charset>utf16</Charset>
+-    </collation>
+-    <collation id="122" parent="1" name="utf16_estonian_ci">
+-      <Charset>utf16</Charset>
+-    </collation>
+-    <collation id="123" parent="1" name="utf16_general_ci">
+-      <Charset>utf16</Charset>
+-      <DefaultForCharset>1</DefaultForCharset>
+-    </collation>
+-    <collation id="124" parent="1" name="utf16_german2_ci">
+-      <Charset>utf16</Charset>
+-    </collation>
+-    <collation id="125" parent="1" name="utf16_hungarian_ci">
+-      <Charset>utf16</Charset>
+-    </collation>
+-    <collation id="126" parent="1" name="utf16_icelandic_ci">
+-      <Charset>utf16</Charset>
+-    </collation>
+-    <collation id="127" parent="1" name="utf16_latvian_ci">
+-      <Charset>utf16</Charset>
+-    </collation>
+-    <collation id="128" parent="1" name="utf16_lithuanian_ci">
+-      <Charset>utf16</Charset>
+-    </collation>
+-    <collation id="129" parent="1" name="utf16_persian_ci">
+-      <Charset>utf16</Charset>
+-    </collation>
+-    <collation id="130" parent="1" name="utf16_polish_ci">
+-      <Charset>utf16</Charset>
+-    </collation>
+-    <collation id="131" parent="1" name="utf16_roman_ci">
+-      <Charset>utf16</Charset>
+-    </collation>
+-    <collation id="132" parent="1" name="utf16_romanian_ci">
+-      <Charset>utf16</Charset>
+-    </collation>
+-    <collation id="133" parent="1" name="utf16_sinhala_ci">
+-      <Charset>utf16</Charset>
+-    </collation>
+-    <collation id="134" parent="1" name="utf16_slovak_ci">
+-      <Charset>utf16</Charset>
+-    </collation>
+-    <collation id="135" parent="1" name="utf16_slovenian_ci">
+-      <Charset>utf16</Charset>
+-    </collation>
+-    <collation id="136" parent="1" name="utf16_spanish2_ci">
+-      <Charset>utf16</Charset>
+-    </collation>
+-    <collation id="137" parent="1" name="utf16_spanish_ci">
+-      <Charset>utf16</Charset>
+-    </collation>
+-    <collation id="138" parent="1" name="utf16_swedish_ci">
+-      <Charset>utf16</Charset>
+-    </collation>
+-    <collation id="139" parent="1" name="utf16_turkish_ci">
+-      <Charset>utf16</Charset>
+-    </collation>
+-    <collation id="140" parent="1" name="utf16_unicode_520_ci">
+-      <Charset>utf16</Charset>
+-    </collation>
+-    <collation id="141" parent="1" name="utf16_unicode_ci">
+-      <Charset>utf16</Charset>
+-    </collation>
+-    <collation id="142" parent="1" name="utf16_vietnamese_ci">
+-      <Charset>utf16</Charset>
+-    </collation>
+-    <collation id="143" parent="1" name="utf16le_bin">
+-      <Charset>utf16le</Charset>
+-    </collation>
+-    <collation id="144" parent="1" name="utf16le_general_ci">
+-      <Charset>utf16le</Charset>
+-      <DefaultForCharset>1</DefaultForCharset>
+-    </collation>
+-    <collation id="145" parent="1" name="utf32_bin">
+-      <Charset>utf32</Charset>
+-    </collation>
+-    <collation id="146" parent="1" name="utf32_croatian_ci">
+-      <Charset>utf32</Charset>
+-    </collation>
+-    <collation id="147" parent="1" name="utf32_czech_ci">
+-      <Charset>utf32</Charset>
+-    </collation>
+-    <collation id="148" parent="1" name="utf32_danish_ci">
+-      <Charset>utf32</Charset>
+-    </collation>
+-    <collation id="149" parent="1" name="utf32_esperanto_ci">
+-      <Charset>utf32</Charset>
+-    </collation>
+-    <collation id="150" parent="1" name="utf32_estonian_ci">
+-      <Charset>utf32</Charset>
+-    </collation>
+-    <collation id="151" parent="1" name="utf32_general_ci">
+-      <Charset>utf32</Charset>
+-      <DefaultForCharset>1</DefaultForCharset>
+-    </collation>
+-    <collation id="152" parent="1" name="utf32_german2_ci">
+-      <Charset>utf32</Charset>
+-    </collation>
+-    <collation id="153" parent="1" name="utf32_hungarian_ci">
+-      <Charset>utf32</Charset>
+-    </collation>
+-    <collation id="154" parent="1" name="utf32_icelandic_ci">
+-      <Charset>utf32</Charset>
+-    </collation>
+-    <collation id="155" parent="1" name="utf32_latvian_ci">
+-      <Charset>utf32</Charset>
+-    </collation>
+-    <collation id="156" parent="1" name="utf32_lithuanian_ci">
+-      <Charset>utf32</Charset>
+-    </collation>
+-    <collation id="157" parent="1" name="utf32_persian_ci">
+-      <Charset>utf32</Charset>
+-    </collation>
+-    <collation id="158" parent="1" name="utf32_polish_ci">
+-      <Charset>utf32</Charset>
+-    </collation>
+-    <collation id="159" parent="1" name="utf32_roman_ci">
+-      <Charset>utf32</Charset>
+-    </collation>
+-    <collation id="160" parent="1" name="utf32_romanian_ci">
+-      <Charset>utf32</Charset>
+-    </collation>
+-    <collation id="161" parent="1" name="utf32_sinhala_ci">
+-      <Charset>utf32</Charset>
+-    </collation>
+-    <collation id="162" parent="1" name="utf32_slovak_ci">
+-      <Charset>utf32</Charset>
+-    </collation>
+-    <collation id="163" parent="1" name="utf32_slovenian_ci">
+-      <Charset>utf32</Charset>
+-    </collation>
+-    <collation id="164" parent="1" name="utf32_spanish2_ci">
+-      <Charset>utf32</Charset>
+-    </collation>
+-    <collation id="165" parent="1" name="utf32_spanish_ci">
+-      <Charset>utf32</Charset>
+-    </collation>
+-    <collation id="166" parent="1" name="utf32_swedish_ci">
+-      <Charset>utf32</Charset>
+-    </collation>
+-    <collation id="167" parent="1" name="utf32_turkish_ci">
+-      <Charset>utf32</Charset>
+-    </collation>
+-    <collation id="168" parent="1" name="utf32_unicode_520_ci">
+-      <Charset>utf32</Charset>
+-    </collation>
+-    <collation id="169" parent="1" name="utf32_unicode_ci">
+-      <Charset>utf32</Charset>
+-    </collation>
+-    <collation id="170" parent="1" name="utf32_vietnamese_ci">
+-      <Charset>utf32</Charset>
+-    </collation>
+-    <collation id="171" parent="1" name="utf8mb3_bin">
+-      <Charset>utf8mb3</Charset>
+-    </collation>
+-    <collation id="172" parent="1" name="utf8mb3_croatian_ci">
+-      <Charset>utf8mb3</Charset>
+-    </collation>
+-    <collation id="173" parent="1" name="utf8mb3_czech_ci">
+-      <Charset>utf8mb3</Charset>
+-    </collation>
+-    <collation id="174" parent="1" name="utf8mb3_danish_ci">
+-      <Charset>utf8mb3</Charset>
+-    </collation>
+-    <collation id="175" parent="1" name="utf8mb3_esperanto_ci">
+-      <Charset>utf8mb3</Charset>
+-    </collation>
+-    <collation id="176" parent="1" name="utf8mb3_estonian_ci">
+-      <Charset>utf8mb3</Charset>
+-    </collation>
+-    <collation id="177" parent="1" name="utf8mb3_general_ci">
+-      <Charset>utf8mb3</Charset>
+-      <DefaultForCharset>1</DefaultForCharset>
+-    </collation>
+-    <collation id="178" parent="1" name="utf8mb3_general_mysql500_ci">
+-      <Charset>utf8mb3</Charset>
+-    </collation>
+-    <collation id="179" parent="1" name="utf8mb3_german2_ci">
+-      <Charset>utf8mb3</Charset>
+-    </collation>
+-    <collation id="180" parent="1" name="utf8mb3_hungarian_ci">
+-      <Charset>utf8mb3</Charset>
+-    </collation>
+-    <collation id="181" parent="1" name="utf8mb3_icelandic_ci">
+-      <Charset>utf8mb3</Charset>
+-    </collation>
+-    <collation id="182" parent="1" name="utf8mb3_latvian_ci">
+-      <Charset>utf8mb3</Charset>
+-    </collation>
+-    <collation id="183" parent="1" name="utf8mb3_lithuanian_ci">
+-      <Charset>utf8mb3</Charset>
+-    </collation>
+-    <collation id="184" parent="1" name="utf8mb3_persian_ci">
+-      <Charset>utf8mb3</Charset>
+-    </collation>
+-    <collation id="185" parent="1" name="utf8mb3_polish_ci">
+-      <Charset>utf8mb3</Charset>
+-    </collation>
+-    <collation id="186" parent="1" name="utf8mb3_roman_ci">
+-      <Charset>utf8mb3</Charset>
+-    </collation>
+-    <collation id="187" parent="1" name="utf8mb3_romanian_ci">
+-      <Charset>utf8mb3</Charset>
+-    </collation>
+-    <collation id="188" parent="1" name="utf8mb3_sinhala_ci">
+-      <Charset>utf8mb3</Charset>
+-    </collation>
+-    <collation id="189" parent="1" name="utf8mb3_slovak_ci">
+-      <Charset>utf8mb3</Charset>
+-    </collation>
+-    <collation id="190" parent="1" name="utf8mb3_slovenian_ci">
+-      <Charset>utf8mb3</Charset>
+-    </collation>
+-    <collation id="191" parent="1" name="utf8mb3_spanish2_ci">
+-      <Charset>utf8mb3</Charset>
+-    </collation>
+-    <collation id="192" parent="1" name="utf8mb3_spanish_ci">
+-      <Charset>utf8mb3</Charset>
+-    </collation>
+-    <collation id="193" parent="1" name="utf8mb3_swedish_ci">
+-      <Charset>utf8mb3</Charset>
+-    </collation>
+-    <collation id="194" parent="1" name="utf8mb3_tolower_ci">
+-      <Charset>utf8mb3</Charset>
+-    </collation>
+-    <collation id="195" parent="1" name="utf8mb3_turkish_ci">
+-      <Charset>utf8mb3</Charset>
+-    </collation>
+-    <collation id="196" parent="1" name="utf8mb3_unicode_520_ci">
+-      <Charset>utf8mb3</Charset>
+-    </collation>
+-    <collation id="197" parent="1" name="utf8mb3_unicode_ci">
+-      <Charset>utf8mb3</Charset>
+-    </collation>
+-    <collation id="198" parent="1" name="utf8mb3_vietnamese_ci">
+-      <Charset>utf8mb3</Charset>
+-    </collation>
+-    <collation id="199" parent="1" name="utf8mb4_0900_ai_ci">
+-      <Charset>utf8mb4</Charset>
+-      <DefaultForCharset>1</DefaultForCharset>
+-    </collation>
+-    <collation id="200" parent="1" name="utf8mb4_0900_as_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="201" parent="1" name="utf8mb4_0900_as_cs">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="202" parent="1" name="utf8mb4_0900_bin">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="203" parent="1" name="utf8mb4_bg_0900_ai_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="204" parent="1" name="utf8mb4_bg_0900_as_cs">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="205" parent="1" name="utf8mb4_bin">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="206" parent="1" name="utf8mb4_bs_0900_ai_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="207" parent="1" name="utf8mb4_bs_0900_as_cs">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="208" parent="1" name="utf8mb4_croatian_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="209" parent="1" name="utf8mb4_cs_0900_ai_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="210" parent="1" name="utf8mb4_cs_0900_as_cs">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="211" parent="1" name="utf8mb4_czech_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="212" parent="1" name="utf8mb4_da_0900_ai_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="213" parent="1" name="utf8mb4_da_0900_as_cs">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="214" parent="1" name="utf8mb4_danish_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="215" parent="1" name="utf8mb4_de_pb_0900_ai_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="216" parent="1" name="utf8mb4_de_pb_0900_as_cs">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="217" parent="1" name="utf8mb4_eo_0900_ai_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="218" parent="1" name="utf8mb4_eo_0900_as_cs">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="219" parent="1" name="utf8mb4_es_0900_ai_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="220" parent="1" name="utf8mb4_es_0900_as_cs">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="221" parent="1" name="utf8mb4_es_trad_0900_ai_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="222" parent="1" name="utf8mb4_es_trad_0900_as_cs">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="223" parent="1" name="utf8mb4_esperanto_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="224" parent="1" name="utf8mb4_estonian_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="225" parent="1" name="utf8mb4_et_0900_ai_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="226" parent="1" name="utf8mb4_et_0900_as_cs">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="227" parent="1" name="utf8mb4_general_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="228" parent="1" name="utf8mb4_german2_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="229" parent="1" name="utf8mb4_gl_0900_ai_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="230" parent="1" name="utf8mb4_gl_0900_as_cs">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="231" parent="1" name="utf8mb4_hr_0900_ai_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="232" parent="1" name="utf8mb4_hr_0900_as_cs">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="233" parent="1" name="utf8mb4_hu_0900_ai_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="234" parent="1" name="utf8mb4_hu_0900_as_cs">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="235" parent="1" name="utf8mb4_hungarian_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="236" parent="1" name="utf8mb4_icelandic_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="237" parent="1" name="utf8mb4_is_0900_ai_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="238" parent="1" name="utf8mb4_is_0900_as_cs">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="239" parent="1" name="utf8mb4_ja_0900_as_cs">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="240" parent="1" name="utf8mb4_ja_0900_as_cs_ks">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="241" parent="1" name="utf8mb4_la_0900_ai_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="242" parent="1" name="utf8mb4_la_0900_as_cs">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="243" parent="1" name="utf8mb4_latvian_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="244" parent="1" name="utf8mb4_lithuanian_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="245" parent="1" name="utf8mb4_lt_0900_ai_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="246" parent="1" name="utf8mb4_lt_0900_as_cs">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="247" parent="1" name="utf8mb4_lv_0900_ai_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="248" parent="1" name="utf8mb4_lv_0900_as_cs">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="249" parent="1" name="utf8mb4_mn_cyrl_0900_ai_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="250" parent="1" name="utf8mb4_mn_cyrl_0900_as_cs">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="251" parent="1" name="utf8mb4_nb_0900_ai_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="252" parent="1" name="utf8mb4_nb_0900_as_cs">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="253" parent="1" name="utf8mb4_nn_0900_ai_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="254" parent="1" name="utf8mb4_nn_0900_as_cs">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="255" parent="1" name="utf8mb4_persian_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="256" parent="1" name="utf8mb4_pl_0900_ai_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="257" parent="1" name="utf8mb4_pl_0900_as_cs">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="258" parent="1" name="utf8mb4_polish_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="259" parent="1" name="utf8mb4_ro_0900_ai_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="260" parent="1" name="utf8mb4_ro_0900_as_cs">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="261" parent="1" name="utf8mb4_roman_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="262" parent="1" name="utf8mb4_romanian_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="263" parent="1" name="utf8mb4_ru_0900_ai_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="264" parent="1" name="utf8mb4_ru_0900_as_cs">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="265" parent="1" name="utf8mb4_sinhala_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="266" parent="1" name="utf8mb4_sk_0900_ai_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="267" parent="1" name="utf8mb4_sk_0900_as_cs">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="268" parent="1" name="utf8mb4_sl_0900_ai_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="269" parent="1" name="utf8mb4_sl_0900_as_cs">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="270" parent="1" name="utf8mb4_slovak_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="271" parent="1" name="utf8mb4_slovenian_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="272" parent="1" name="utf8mb4_spanish2_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="273" parent="1" name="utf8mb4_spanish_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="274" parent="1" name="utf8mb4_sr_latn_0900_ai_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="275" parent="1" name="utf8mb4_sr_latn_0900_as_cs">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="276" parent="1" name="utf8mb4_sv_0900_ai_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="277" parent="1" name="utf8mb4_sv_0900_as_cs">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="278" parent="1" name="utf8mb4_swedish_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="279" parent="1" name="utf8mb4_tr_0900_ai_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="280" parent="1" name="utf8mb4_tr_0900_as_cs">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="281" parent="1" name="utf8mb4_turkish_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="282" parent="1" name="utf8mb4_unicode_520_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="283" parent="1" name="utf8mb4_unicode_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="284" parent="1" name="utf8mb4_vi_0900_ai_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="285" parent="1" name="utf8mb4_vi_0900_as_cs">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="286" parent="1" name="utf8mb4_vietnamese_ci">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <collation id="287" parent="1" name="utf8mb4_zh_0900_as_cs">
+-      <Charset>utf8mb4</Charset>
+-    </collation>
+-    <schema id="288" parent="1" name="atguigu">
+-      <Current>1</Current>
+-      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+-    </schema>
+-    <schema id="289" parent="1" name="college">
+-      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+-    </schema>
+-    <schema id="290" parent="1" name="db_house">
+-      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+-    </schema>
+-    <schema id="291" parent="1" name="demo">
+-      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+-    </schema>
+-    <schema id="292" parent="1" name="information_schema">
+-      <CollationName>utf8mb3_general_ci</CollationName>
+-    </schema>
+-    <schema id="293" parent="1" name="jdbc">
+-      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+-    </schema>
+-    <schema id="294" parent="1" name="lemon">
+-      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+-    </schema>
+-    <schema id="295" parent="1" name="market">
+-      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+-    </schema>
+-    <schema id="296" parent="1" name="mutitablecontrol">
+-      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+-    </schema>
+-    <schema id="297" parent="1" name="mysql">
+-      <Grants>user|||mysql.session|localhost|SELECT|G</Grants>
+-      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+-    </schema>
+-    <schema id="298" parent="1" name="performance_schema">
+-      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+-    </schema>
+-    <schema id="299" parent="1" name="sakila">
+-      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+-    </schema>
+-    <schema id="300" parent="1" name="servlet">
+-      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+-    </schema>
+-    <schema id="301" parent="1" name="shangguigu">
+-      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+-    </schema>
+-    <schema id="302" parent="1" name="sys">
+-      <Grants>sys_config|||mysql.sys|localhost|SELECT|G</Grants>
+-      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+-    </schema>
+-    <schema id="303" parent="1" name="world">
+-      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+-    </schema>
+-    <user id="304" parent="1" name="mysql.infoschema">
+-      <CanLogin>0</CanLogin>
+-      <Host>localhost</Host>
+-      <Plugin>caching_sha2_password</Plugin>
+-    </user>
+-    <user id="305" parent="1" name="mysql.session">
+-      <CanLogin>0</CanLogin>
+-      <Host>localhost</Host>
+-      <Plugin>caching_sha2_password</Plugin>
+-    </user>
+-    <user id="306" parent="1" name="mysql.sys">
+-      <CanLogin>0</CanLogin>
+-      <Host>localhost</Host>
+-      <Plugin>caching_sha2_password</Plugin>
+-    </user>
+-    <user id="307" parent="1" name="root">
+-      <Host>localhost</Host>
+-      <Plugin>caching_sha2_password</Plugin>
+-    </user>
+-    <table id="308" parent="290" name="acl_admin">
+-      <Comment>用户表</Comment>
+-      <Engine>InnoDB</Engine>
+-      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+-    </table>
+-    <table id="309" parent="290" name="acl_admin_role">
+-      <Comment>用户角色</Comment>
+-      <Engine>InnoDB</Engine>
+-      <CollationName>utf8mb3_general_ci</CollationName>
+-    </table>
+-    <table id="310" parent="290" name="acl_permission">
+-      <Comment>权限</Comment>
+-      <Engine>InnoDB</Engine>
+-      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+-    </table>
+-    <table id="311" parent="290" name="acl_role">
+-      <Comment>角色</Comment>
+-      <Engine>InnoDB</Engine>
+-      <CollationName>utf8mb3_general_ci</CollationName>
+-    </table>
+-    <table id="312" parent="290" name="acl_role_permission">
+-      <Comment>角色权限</Comment>
+-      <Engine>InnoDB</Engine>
+-      <CollationName>utf8mb3_general_ci</CollationName>
+-    </table>
+-    <table id="313" parent="290" name="hse_community">
+-      <Comment>小区信息</Comment>
+-      <Engine>InnoDB</Engine>
+-      <CollationName>utf8mb3_general_ci</CollationName>
+-    </table>
+-    <table id="314" parent="290" name="hse_dict">
+-      <Comment>组织架构表</Comment>
+-      <Engine>InnoDB</Engine>
+-      <CollationName>utf8mb3_general_ci</CollationName>
+-    </table>
+-    <table id="315" parent="290" name="hse_house">
+-      <Comment>房源表</Comment>
+-      <Engine>InnoDB</Engine>
+-      <CollationName>utf8mb3_general_ci</CollationName>
+-    </table>
+-    <table id="316" parent="290" name="hse_house_broker">
+-      <Comment>房源经纪人</Comment>
+-      <Engine>InnoDB</Engine>
+-      <CollationName>utf8mb3_general_ci</CollationName>
+-    </table>
+-    <table id="317" parent="290" name="hse_house_image">
+-      <Comment>房源图片</Comment>
+-      <Engine>InnoDB</Engine>
+-      <CollationName>utf8mb3_general_ci</CollationName>
+-    </table>
+-    <table id="318" parent="290" name="hse_house_user">
+-      <Comment>房东信息表</Comment>
+-      <Engine>InnoDB</Engine>
+-      <CollationName>utf8mb3_general_ci</CollationName>
+-    </table>
+-    <table id="319" parent="290" name="user_follow">
+-      <Comment>用户关注表</Comment>
+-      <Engine>InnoDB</Engine>
+-      <CollationName>utf8mb3_general_ci</CollationName>
+-    </table>
+-    <table id="320" parent="290" name="user_info">
+-      <Comment>用户表</Comment>
+-      <Engine>InnoDB</Engine>
+-      <CollationName>utf8mb3_general_ci</CollationName>
+-    </table>
+-    <column id="321" parent="308" name="id">
+-      <AutoIncrement>10</AutoIncrement>
+-      <Comment>会员id</Comment>
+-      <DasType>bigint|0s</DasType>
+-      <NotNull>1</NotNull>
+-      <Position>1</Position>
+-    </column>
+-    <column id="322" parent="308" name="username">
+-      <Comment>用户名</Comment>
+-      <DasType>varchar(20)|0s</DasType>
+-      <DefaultExpression>&apos;&apos;</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <Position>2</Position>
+-    </column>
+-    <column id="323" parent="308" name="password">
+-      <Comment>密码</Comment>
+-      <DasType>varchar(100)|0s</DasType>
+-      <DefaultExpression>&apos;&apos;</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <Position>3</Position>
+-    </column>
+-    <column id="324" parent="308" name="name">
+-      <Comment>姓名</Comment>
+-      <DasType>varchar(50)|0s</DasType>
+-      <Position>4</Position>
+-    </column>
+-    <column id="325" parent="308" name="phone">
+-      <Comment>手机</Comment>
+-      <DasType>varchar(11)|0s</DasType>
+-      <Position>5</Position>
+-    </column>
+-    <column id="326" parent="308" name="head_url">
+-      <Comment>头像地址</Comment>
+-      <DasType>varchar(200)|0s</DasType>
+-      <Position>6</Position>
+-    </column>
+-    <column id="327" parent="308" name="description">
+-      <Comment>描述</Comment>
+-      <DasType>varchar(255)|0s</DasType>
+-      <Position>7</Position>
+-    </column>
+-    <column id="328" parent="308" name="create_time">
+-      <Comment>创建时间</Comment>
+-      <DasType>timestamp|0s</DasType>
+-      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <Position>8</Position>
+-    </column>
+-    <column id="329" parent="308" name="update_time">
+-      <Comment>更新时间</Comment>
+-      <DasType>timestamp|0s</DasType>
+-      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <OnUpdate>CURRENT_TIMESTAMP</OnUpdate>
+-      <Position>9</Position>
+-    </column>
+-    <column id="330" parent="308" name="is_deleted">
+-      <Comment>删除标记（0:不可用 1:可用）</Comment>
+-      <DasType>tinyint|0s</DasType>
+-      <DefaultExpression>0</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <Position>10</Position>
+-    </column>
+-    <index id="331" parent="308" name="PRIMARY">
+-      <ColNames>id</ColNames>
+-      <Type>btree</Type>
+-      <Unique>1</Unique>
+-    </index>
+-    <index id="332" parent="308" name="idx_username">
+-      <ColNames>username</ColNames>
+-      <Type>btree</Type>
+-      <Unique>1</Unique>
+-    </index>
+-    <key id="333" parent="308" name="PRIMARY">
+-      <NameSurrogate>1</NameSurrogate>
+-      <Primary>1</Primary>
+-      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+-    </key>
+-    <key id="334" parent="308" name="idx_username">
+-      <UnderlyingIndexName>idx_username</UnderlyingIndexName>
+-    </key>
+-    <column id="335" parent="309" name="id">
+-      <AutoIncrement>11</AutoIncrement>
+-      <Comment>主键id</Comment>
+-      <DasType>bigint|0s</DasType>
+-      <NotNull>1</NotNull>
+-      <Position>1</Position>
+-    </column>
+-    <column id="336" parent="309" name="role_id">
+-      <Comment>角色id</Comment>
+-      <DasType>bigint|0s</DasType>
+-      <DefaultExpression>0</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <Position>2</Position>
+-    </column>
+-    <column id="337" parent="309" name="admin_id">
+-      <Comment>用户id</Comment>
+-      <DasType>bigint|0s</DasType>
+-      <DefaultExpression>0</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <Position>3</Position>
+-    </column>
+-    <column id="338" parent="309" name="create_time">
+-      <Comment>创建时间</Comment>
+-      <DasType>timestamp|0s</DasType>
+-      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <Position>4</Position>
+-    </column>
+-    <column id="339" parent="309" name="update_time">
+-      <Comment>更新时间</Comment>
+-      <DasType>timestamp|0s</DasType>
+-      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <OnUpdate>CURRENT_TIMESTAMP</OnUpdate>
+-      <Position>5</Position>
+-    </column>
+-    <column id="340" parent="309" name="is_deleted">
+-      <Comment>删除标记（0:不可用 1:可用）</Comment>
+-      <DasType>tinyint|0s</DasType>
+-      <DefaultExpression>0</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <Position>6</Position>
+-    </column>
+-    <index id="341" parent="309" name="PRIMARY">
+-      <ColNames>id</ColNames>
+-      <Type>btree</Type>
+-      <Unique>1</Unique>
+-    </index>
+-    <index id="342" parent="309" name="idx_role_id">
+-      <ColNames>role_id</ColNames>
+-      <Type>btree</Type>
+-    </index>
+-    <index id="343" parent="309" name="idx_admin_id">
+-      <ColNames>admin_id</ColNames>
+-      <Type>btree</Type>
+-    </index>
+-    <key id="344" parent="309" name="PRIMARY">
+-      <NameSurrogate>1</NameSurrogate>
+-      <Primary>1</Primary>
+-      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+-    </key>
+-    <column id="345" parent="310" name="id">
+-      <AutoIncrement>48</AutoIncrement>
+-      <Comment>编号</Comment>
+-      <DasType>bigint|0s</DasType>
+-      <NotNull>1</NotNull>
+-      <Position>1</Position>
+-    </column>
+-    <column id="346" parent="310" name="parent_id">
+-      <Comment>所属上级</Comment>
+-      <DasType>bigint|0s</DasType>
+-      <DefaultExpression>0</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <Position>2</Position>
+-    </column>
+-    <column id="347" parent="310" name="name">
+-      <Comment>权限名称</Comment>
+-      <DasType>varchar(20)|0s</DasType>
+-      <DefaultExpression>&apos;&apos;</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <Position>3</Position>
+-    </column>
+-    <column id="348" parent="310" name="url">
+-      <Comment>菜单路径</Comment>
+-      <DasType>varchar(50)|0s</DasType>
+-      <Position>4</Position>
+-    </column>
+-    <column id="349" parent="310" name="code">
+-      <Comment>权限标识</Comment>
+-      <DasType>varchar(100)|0s</DasType>
+-      <Position>5</Position>
+-    </column>
+-    <column id="350" parent="310" name="type">
+-      <Comment>类型(1:菜单,2:按钮)</Comment>
+-      <DasType>tinyint|0s</DasType>
+-      <DefaultExpression>0</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <Position>6</Position>
+-    </column>
+-    <column id="351" parent="310" name="sort">
+-      <Comment>排序</Comment>
+-      <DasType>tinyint|0s</DasType>
+-      <Position>7</Position>
+-    </column>
+-    <column id="352" parent="310" name="create_time">
+-      <Comment>创建时间</Comment>
+-      <DasType>timestamp|0s</DasType>
+-      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <Position>8</Position>
+-    </column>
+-    <column id="353" parent="310" name="update_time">
+-      <Comment>更新时间</Comment>
+-      <DasType>timestamp|0s</DasType>
+-      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <OnUpdate>CURRENT_TIMESTAMP</OnUpdate>
+-      <Position>9</Position>
+-    </column>
+-    <column id="354" parent="310" name="is_deleted">
+-      <Comment>删除标记（0:不可用 1:可用）</Comment>
+-      <DasType>tinyint|0s</DasType>
+-      <DefaultExpression>0</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <Position>10</Position>
+-    </column>
+-    <index id="355" parent="310" name="PRIMARY">
+-      <ColNames>id</ColNames>
+-      <Type>btree</Type>
+-      <Unique>1</Unique>
+-    </index>
+-    <index id="356" parent="310" name="idx_parent_id">
+-      <ColNames>parent_id</ColNames>
+-      <Type>btree</Type>
+-    </index>
+-    <key id="357" parent="310" name="PRIMARY">
+-      <NameSurrogate>1</NameSurrogate>
+-      <Primary>1</Primary>
+-      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+-    </key>
+-    <column id="358" parent="311" name="id">
+-      <AutoIncrement>21</AutoIncrement>
+-      <Comment>角色id</Comment>
+-      <DasType>bigint|0s</DasType>
+-      <NotNull>1</NotNull>
+-      <Position>1</Position>
+-    </column>
+-    <column id="359" parent="311" name="role_name">
+-      <Comment>角色名称</Comment>
+-      <DasType>varchar(20)|0s</DasType>
+-      <DefaultExpression>&apos;&apos;</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <Position>2</Position>
+-    </column>
+-    <column id="360" parent="311" name="role_code">
+-      <Comment>角色编码</Comment>
+-      <DasType>varchar(20)|0s</DasType>
+-      <Position>3</Position>
+-    </column>
+-    <column id="361" parent="311" name="description">
+-      <Comment>描述</Comment>
+-      <DasType>varchar(255)|0s</DasType>
+-      <Position>4</Position>
+-    </column>
+-    <column id="362" parent="311" name="create_time">
+-      <Comment>创建时间</Comment>
+-      <DasType>timestamp|0s</DasType>
+-      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <Position>5</Position>
+-    </column>
+-    <column id="363" parent="311" name="update_time">
+-      <Comment>更新时间</Comment>
+-      <DasType>timestamp|0s</DasType>
+-      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <OnUpdate>CURRENT_TIMESTAMP</OnUpdate>
+-      <Position>6</Position>
+-    </column>
+-    <column id="364" parent="311" name="is_deleted">
+-      <Comment>删除标记（0:不可用 1:可用）</Comment>
+-      <DasType>tinyint|0s</DasType>
+-      <DefaultExpression>0</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <Position>7</Position>
+-    </column>
+-    <index id="365" parent="311" name="PRIMARY">
+-      <ColNames>id</ColNames>
+-      <Type>btree</Type>
+-      <Unique>1</Unique>
+-    </index>
+-    <key id="366" parent="311" name="PRIMARY">
+-      <NameSurrogate>1</NameSurrogate>
+-      <Primary>1</Primary>
+-      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+-    </key>
+-    <column id="367" parent="312" name="id">
+-      <AutoIncrement>98</AutoIncrement>
+-      <DasType>bigint|0s</DasType>
+-      <NotNull>1</NotNull>
+-      <Position>1</Position>
+-    </column>
+-    <column id="368" parent="312" name="role_id">
+-      <DasType>bigint|0s</DasType>
+-      <DefaultExpression>0</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <Position>2</Position>
+-    </column>
+-    <column id="369" parent="312" name="permission_id">
+-      <DasType>bigint|0s</DasType>
+-      <DefaultExpression>0</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <Position>3</Position>
+-    </column>
+-    <column id="370" parent="312" name="create_time">
+-      <Comment>创建时间</Comment>
+-      <DasType>timestamp|0s</DasType>
+-      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <Position>4</Position>
+-    </column>
+-    <column id="371" parent="312" name="update_time">
+-      <Comment>更新时间</Comment>
+-      <DasType>timestamp|0s</DasType>
+-      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <OnUpdate>CURRENT_TIMESTAMP</OnUpdate>
+-      <Position>5</Position>
+-    </column>
+-    <column id="372" parent="312" name="is_deleted">
+-      <Comment>删除标记（0:不可用 1:可用）</Comment>
+-      <DasType>tinyint|0s</DasType>
+-      <DefaultExpression>0</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <Position>6</Position>
+-    </column>
+-    <index id="373" parent="312" name="PRIMARY">
+-      <ColNames>id</ColNames>
+-      <Type>btree</Type>
+-      <Unique>1</Unique>
+-    </index>
+-    <index id="374" parent="312" name="idx_role_id">
+-      <ColNames>role_id</ColNames>
+-      <Type>btree</Type>
+-    </index>
+-    <index id="375" parent="312" name="idx_permission_id">
+-      <ColNames>permission_id</ColNames>
+-      <Type>btree</Type>
+-    </index>
+-    <key id="376" parent="312" name="PRIMARY">
+-      <NameSurrogate>1</NameSurrogate>
+-      <Primary>1</Primary>
+-      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+-    </key>
+-    <column id="377" parent="313" name="id">
+-      <AutoIncrement>2</AutoIncrement>
+-      <Comment>id</Comment>
+-      <DasType>bigint|0s</DasType>
+-      <NotNull>1</NotNull>
+-      <Position>1</Position>
+-    </column>
+-    <column id="378" parent="313" name="name">
+-      <Comment>小区名称</Comment>
+-      <DasType>varchar(20)|0s</DasType>
+-      <DefaultExpression>&apos;&apos;</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <Position>2</Position>
+-    </column>
+-    <column id="379" parent="313" name="description">
+-      <Comment>描述</Comment>
+-      <DasType>text|0s</DasType>
+-      <Position>3</Position>
+-    </column>
+-    <column id="380" parent="313" name="province_id">
+-      <Comment>省id：（字典id） 预留字段</Comment>
+-      <DasType>bigint|0s</DasType>
+-      <Position>4</Position>
+-    </column>
+-    <column id="381" parent="313" name="city_id">
+-      <Comment>城市id：（字典id）预留字段</Comment>
+-      <DasType>bigint|0s</DasType>
+-      <Position>5</Position>
+-    </column>
+-    <column id="382" parent="313" name="area_id">
+-      <Comment>区域id：（字典id）</Comment>
+-      <DasType>bigint|0s</DasType>
+-      <Position>6</Position>
+-    </column>
+-    <column id="383" parent="313" name="plate_id">
+-      <Comment>板块id：（字典id）</Comment>
+-      <DasType>bigint|0s</DasType>
+-      <Position>7</Position>
+-    </column>
+-    <column id="384" parent="313" name="address">
+-      <Comment>详细地址</Comment>
+-      <DasType>varchar(100)|0s</DasType>
+-      <Position>8</Position>
+-    </column>
+-    <column id="385" parent="313" name="longitude">
+-      <Comment>经度（预留字段）</Comment>
+-      <DasType>decimal(10,2 digit)|0s</DasType>
+-      <Position>9</Position>
+-    </column>
+-    <column id="386" parent="313" name="latitude">
+-      <Comment>纬度（预留字段）</Comment>
+-      <DasType>decimal(10,2 digit)|0s</DasType>
+-      <Position>10</Position>
+-    </column>
+-    <column id="387" parent="313" name="build_years">
+-      <Comment>建筑年代</Comment>
+-      <DasType>varchar(20)|0s</DasType>
+-      <Position>11</Position>
+-    </column>
+-    <column id="388" parent="313" name="property_price">
+-      <Comment>物业价格</Comment>
+-      <DasType>varchar(20)|0s</DasType>
+-      <Position>12</Position>
+-    </column>
+-    <column id="389" parent="313" name="property_company">
+-      <Comment>物业公司</Comment>
+-      <DasType>varchar(100)|0s</DasType>
+-      <Position>13</Position>
+-    </column>
+-    <column id="390" parent="313" name="developer">
+-      <Comment>开发商</Comment>
+-      <DasType>varchar(100)|0s</DasType>
+-      <Position>14</Position>
+-    </column>
+-    <column id="391" parent="313" name="build_num">
+-      <Comment>楼栋数</Comment>
+-      <DasType>int|0s</DasType>
+-      <Position>15</Position>
+-    </column>
+-    <column id="392" parent="313" name="house_num">
+-      <Comment>房屋数</Comment>
+-      <DasType>int|0s</DasType>
+-      <Position>16</Position>
+-    </column>
+-    <column id="393" parent="313" name="average_price">
+-      <Comment>均价</Comment>
+-      <DasType>decimal(10,2 digit)|0s</DasType>
+-      <Position>17</Position>
+-    </column>
+-    <column id="394" parent="313" name="create_time">
+-      <Comment>创建时间</Comment>
+-      <DasType>timestamp|0s</DasType>
+-      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <Position>18</Position>
+-    </column>
+-    <column id="395" parent="313" name="update_time">
+-      <Comment>更新时间</Comment>
+-      <DasType>timestamp|0s</DasType>
+-      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <OnUpdate>CURRENT_TIMESTAMP</OnUpdate>
+-      <Position>19</Position>
+-    </column>
+-    <column id="396" parent="313" name="is_deleted">
+-      <Comment>删除标记（0:不可用 1:可用）</Comment>
+-      <DasType>tinyint|0s</DasType>
+-      <DefaultExpression>0</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <Position>20</Position>
+-    </column>
+-    <index id="397" parent="313" name="PRIMARY">
+-      <ColNames>id</ColNames>
+-      <Type>btree</Type>
+-      <Unique>1</Unique>
+-    </index>
+-    <key id="398" parent="313" name="PRIMARY">
+-      <NameSurrogate>1</NameSurrogate>
+-      <Primary>1</Primary>
+-      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+-    </key>
+-    <column id="399" parent="314" name="id">
+-      <AutoIncrement>110338</AutoIncrement>
+-      <Comment>id</Comment>
+-      <DasType>bigint|0s</DasType>
+-      <NotNull>1</NotNull>
+-      <Position>1</Position>
+-    </column>
+-    <column id="400" parent="314" name="parent_id">
+-      <Comment>上级id</Comment>
+-      <DasType>bigint|0s</DasType>
+-      <DefaultExpression>0</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <Position>2</Position>
+-    </column>
+-    <column id="401" parent="314" name="name">
+-      <Comment>名称</Comment>
+-      <DasType>varchar(100)|0s</DasType>
+-      <DefaultExpression>&apos;&apos;</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <Position>3</Position>
+-    </column>
+-    <column id="402" parent="314" name="dict_code">
+-      <Comment>编码</Comment>
+-      <DasType>varchar(20)|0s</DasType>
+-      <Position>4</Position>
+-    </column>
+-    <column id="403" parent="314" name="create_time">
+-      <Comment>创建时间</Comment>
+-      <DasType>timestamp|0s</DasType>
+-      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <Position>5</Position>
+-    </column>
+-    <column id="404" parent="314" name="update_time">
+-      <Comment>更新时间</Comment>
+-      <DasType>timestamp|0s</DasType>
+-      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <OnUpdate>CURRENT_TIMESTAMP</OnUpdate>
+-      <Position>6</Position>
+-    </column>
+-    <column id="405" parent="314" name="is_deleted">
+-      <Comment>删除标记（0:不可用 1:可用）</Comment>
+-      <DasType>tinyint|0s</DasType>
+-      <DefaultExpression>0</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <Position>7</Position>
+-    </column>
+-    <index id="406" parent="314" name="PRIMARY">
+-      <ColNames>id</ColNames>
+-      <Type>btree</Type>
+-      <Unique>1</Unique>
+-    </index>
+-    <index id="407" parent="314" name="parent_id">
+-      <ColNames>parent_id</ColNames>
+-      <Type>btree</Type>
+-    </index>
+-    <index id="408" parent="314" name="dict_code">
+-      <ColNames>dict_code</ColNames>
+-      <Type>btree</Type>
+-    </index>
+-    <key id="409" parent="314" name="PRIMARY">
+-      <NameSurrogate>1</NameSurrogate>
+-      <Primary>1</Primary>
+-      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+-    </key>
+-    <column id="410" parent="315" name="id">
+-      <AutoIncrement>4</AutoIncrement>
+-      <Comment>id</Comment>
+-      <DasType>bigint|0s</DasType>
+-      <NotNull>1</NotNull>
+-      <Position>1</Position>
+-    </column>
+-    <column id="411" parent="315" name="community_id">
+-      <Comment>小区id</Comment>
+-      <DasType>bigint|0s</DasType>
+-      <Position>2</Position>
+-    </column>
+-    <column id="412" parent="315" name="name">
+-      <Comment>房源名称</Comment>
+-      <DasType>varchar(20)|0s</DasType>
+-      <DefaultExpression>&apos;&apos;</DefaultExpression>
+-      <Position>3</Position>
+-    </column>
+-    <column id="413" parent="315" name="description">
+-      <Comment>描述</Comment>
+-      <DasType>varchar(200)|0s</DasType>
+-      <Position>4</Position>
+-    </column>
+-    <column id="414" parent="315" name="total_price">
+-      <Comment>总价：万元</Comment>
+-      <DasType>decimal(10,2 digit)|0s</DasType>
+-      <Position>5</Position>
+-    </column>
+-    <column id="415" parent="315" name="unit_price">
+-      <Comment>单位价格</Comment>
+-      <DasType>decimal(10,2 digit)|0s</DasType>
+-      <Position>6</Position>
+-    </column>
+-    <column id="416" parent="315" name="build_area">
+-      <Comment>建筑面积</Comment>
+-      <DasType>decimal(10,2 digit)|0s</DasType>
+-      <Position>7</Position>
+-    </column>
+-    <column id="417" parent="315" name="inside_area">
+-      <Comment>套内面积</Comment>
+-      <DasType>decimal(10,2 digit)|0s</DasType>
+-      <Position>8</Position>
+-    </column>
+-    <column id="418" parent="315" name="house_type_id">
+-      <Comment>户型：（字典id）</Comment>
+-      <DasType>varchar(20)|0s</DasType>
+-      <Position>9</Position>
+-    </column>
+-    <column id="419" parent="315" name="floor_id">
+-      <Comment>楼层（字典id）</Comment>
+-      <DasType>bigint|0s</DasType>
+-      <Position>10</Position>
+-    </column>
+-    <column id="420" parent="315" name="build_structure_id">
+-      <Comment>建筑结构：（字典id）</Comment>
+-      <DasType>bigint|0s</DasType>
+-      <Position>11</Position>
+-    </column>
+-    <column id="421" parent="315" name="direction_id">
+-      <Comment>朝向：（字典id）</Comment>
+-      <DasType>bigint|0s</DasType>
+-      <Position>12</Position>
+-    </column>
+-    <column id="422" parent="315" name="decoration_id">
+-      <Comment>装修情况：（字典id）</Comment>
+-      <DasType>bigint|0s</DasType>
+-      <Position>13</Position>
+-    </column>
+-    <column id="423" parent="315" name="house_use_id">
+-      <Comment>房屋用途：（字典id）</Comment>
+-      <DasType>bigint|0s</DasType>
+-      <Position>14</Position>
+-    </column>
+-    <column id="424" parent="315" name="elevator_ratio">
+-      <Comment>电梯比例</Comment>
+-      <DasType>varchar(20)|0s</DasType>
+-      <Position>15</Position>
+-    </column>
+-    <column id="425" parent="315" name="listing_date">
+-      <Comment>挂牌日期</Comment>
+-      <DasType>date|0s</DasType>
+-      <Position>16</Position>
+-    </column>
+-    <column id="426" parent="315" name="last_trade_date">
+-      <Comment>上次交易日期</Comment>
+-      <DasType>date|0s</DasType>
+-      <Position>17</Position>
+-    </column>
+-    <column id="427" parent="315" name="default_image_url">
+-      <Comment>默认图片</Comment>
+-      <DasType>varchar(255)|0s</DasType>
+-      <Position>18</Position>
+-    </column>
+-    <column id="428" parent="315" name="status">
+-      <Comment>状态</Comment>
+-      <DasType>tinyint|0s</DasType>
+-      <DefaultExpression>0</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <Position>19</Position>
+-    </column>
+-    <column id="429" parent="315" name="create_time">
+-      <Comment>创建时间</Comment>
+-      <DasType>timestamp|0s</DasType>
+-      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <Position>20</Position>
+-    </column>
+-    <column id="430" parent="315" name="update_time">
+-      <Comment>更新时间</Comment>
+-      <DasType>timestamp|0s</DasType>
+-      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <OnUpdate>CURRENT_TIMESTAMP</OnUpdate>
+-      <Position>21</Position>
+-    </column>
+-    <column id="431" parent="315" name="is_deleted">
+-      <Comment>删除标记（0:不可用 1:可用）</Comment>
+-      <DasType>tinyint|0s</DasType>
+-      <DefaultExpression>0</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <Position>22</Position>
+-    </column>
+-    <index id="432" parent="315" name="PRIMARY">
+-      <ColNames>id</ColNames>
+-      <Type>btree</Type>
+-      <Unique>1</Unique>
+-    </index>
+-    <key id="433" parent="315" name="PRIMARY">
+-      <NameSurrogate>1</NameSurrogate>
+-      <Primary>1</Primary>
+-      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+-    </key>
+-    <column id="434" parent="316" name="id">
+-      <AutoIncrement>7</AutoIncrement>
+-      <Comment>id</Comment>
+-      <DasType>bigint|0s</DasType>
+-      <NotNull>1</NotNull>
+-      <Position>1</Position>
+-    </column>
+-    <column id="435" parent="316" name="house_id">
+-      <Comment>房源id</Comment>
+-      <DasType>bigint|0s</DasType>
+-      <Position>2</Position>
+-    </column>
+-    <column id="436" parent="316" name="broker_id">
+-      <Comment>经纪人id</Comment>
+-      <DasType>bigint|0s</DasType>
+-      <DefaultExpression>0</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <Position>3</Position>
+-    </column>
+-    <column id="437" parent="316" name="broker_name">
+-      <Comment>经纪人名称</Comment>
+-      <DasType>varchar(10)|0s</DasType>
+-      <Position>4</Position>
+-    </column>
+-    <column id="438" parent="316" name="broker_head_url">
+-      <Comment>经纪人头像</Comment>
+-      <DasType>varchar(255)|0s</DasType>
+-      <Position>5</Position>
+-    </column>
+-    <column id="439" parent="316" name="create_time">
+-      <Comment>创建时间</Comment>
+-      <DasType>timestamp|0s</DasType>
+-      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <Position>6</Position>
+-    </column>
+-    <column id="440" parent="316" name="update_time">
+-      <Comment>更新时间</Comment>
+-      <DasType>timestamp|0s</DasType>
+-      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <OnUpdate>CURRENT_TIMESTAMP</OnUpdate>
+-      <Position>7</Position>
+-    </column>
+-    <column id="441" parent="316" name="is_deleted">
+-      <Comment>删除标记（0:不可用 1:可用）</Comment>
+-      <DasType>tinyint|0s</DasType>
+-      <DefaultExpression>0</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <Position>8</Position>
+-    </column>
+-    <index id="442" parent="316" name="PRIMARY">
+-      <ColNames>id</ColNames>
+-      <Type>btree</Type>
+-      <Unique>1</Unique>
+-    </index>
+-    <key id="443" parent="316" name="PRIMARY">
+-      <NameSurrogate>1</NameSurrogate>
+-      <Primary>1</Primary>
+-      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+-    </key>
+-    <column id="444" parent="317" name="id">
+-      <AutoIncrement>37</AutoIncrement>
+-      <Comment>id</Comment>
+-      <DasType>bigint|0s</DasType>
+-      <NotNull>1</NotNull>
+-      <Position>1</Position>
+-    </column>
+-    <column id="445" parent="317" name="house_id">
+-      <Comment>房源id</Comment>
+-      <DasType>bigint|0s</DasType>
+-      <Position>2</Position>
+-    </column>
+-    <column id="446" parent="317" name="image_name">
+-      <Comment>图片名称</Comment>
+-      <DasType>varchar(100)|0s</DasType>
+-      <DefaultExpression>&apos;&apos;</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <Position>3</Position>
+-    </column>
+-    <column id="447" parent="317" name="image_url">
+-      <Comment>图片地址</Comment>
+-      <DasType>varchar(200)|0s</DasType>
+-      <Position>4</Position>
+-    </column>
+-    <column id="448" parent="317" name="type">
+-      <Comment>1：普通图片 2：房产图片</Comment>
+-      <DasType>tinyint|0s</DasType>
+-      <Position>5</Position>
+-    </column>
+-    <column id="449" parent="317" name="create_time">
+-      <Comment>创建时间</Comment>
+-      <DasType>timestamp|0s</DasType>
+-      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <Position>6</Position>
+-    </column>
+-    <column id="450" parent="317" name="update_time">
+-      <Comment>更新时间</Comment>
+-      <DasType>timestamp|0s</DasType>
+-      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <OnUpdate>CURRENT_TIMESTAMP</OnUpdate>
+-      <Position>7</Position>
+-    </column>
+-    <column id="451" parent="317" name="is_deleted">
+-      <Comment>删除标记（0:不可用 1:可用）</Comment>
+-      <DasType>tinyint|0s</DasType>
+-      <DefaultExpression>0</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <Position>8</Position>
+-    </column>
+-    <index id="452" parent="317" name="PRIMARY">
+-      <ColNames>id</ColNames>
+-      <Type>btree</Type>
+-      <Unique>1</Unique>
+-    </index>
+-    <key id="453" parent="317" name="PRIMARY">
+-      <NameSurrogate>1</NameSurrogate>
+-      <Primary>1</Primary>
+-      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+-    </key>
+-    <column id="454" parent="318" name="id">
+-      <AutoIncrement>6</AutoIncrement>
+-      <Comment>id</Comment>
+-      <DasType>bigint|0s</DasType>
+-      <NotNull>1</NotNull>
+-      <Position>1</Position>
+-    </column>
+-    <column id="455" parent="318" name="house_id">
+-      <Comment>房源id</Comment>
+-      <DasType>bigint|0s</DasType>
+-      <Position>2</Position>
+-    </column>
+-    <column id="456" parent="318" name="name">
+-      <Comment>房东姓名</Comment>
+-      <DasType>varchar(20)|0s</DasType>
+-      <DefaultExpression>&apos;&apos;</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <Position>3</Position>
+-    </column>
+-    <column id="457" parent="318" name="phone">
+-      <Comment>手机</Comment>
+-      <DasType>varchar(11)|0s</DasType>
+-      <Position>4</Position>
+-    </column>
+-    <column id="458" parent="318" name="sex">
+-      <Comment>性别 1:男 2：女</Comment>
+-      <DasType>tinyint|0s</DasType>
+-      <DefaultExpression>1</DefaultExpression>
+-      <Position>5</Position>
+-    </column>
+-    <column id="459" parent="318" name="id_no">
+-      <Comment>身份证号</Comment>
+-      <DasType>varchar(20)|0s</DasType>
+-      <Position>6</Position>
+-    </column>
+-    <column id="460" parent="318" name="create_time">
+-      <Comment>创建时间</Comment>
+-      <DasType>timestamp|0s</DasType>
+-      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <Position>7</Position>
+-    </column>
+-    <column id="461" parent="318" name="update_time">
+-      <Comment>更新时间</Comment>
+-      <DasType>timestamp|0s</DasType>
+-      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <OnUpdate>CURRENT_TIMESTAMP</OnUpdate>
+-      <Position>8</Position>
+-    </column>
+-    <column id="462" parent="318" name="is_deleted">
+-      <Comment>删除标记（0:不可用 1:可用）</Comment>
+-      <DasType>tinyint|0s</DasType>
+-      <DefaultExpression>0</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <Position>9</Position>
+-    </column>
+-    <index id="463" parent="318" name="PRIMARY">
+-      <ColNames>id</ColNames>
+-      <Type>btree</Type>
+-      <Unique>1</Unique>
+-    </index>
+-    <key id="464" parent="318" name="PRIMARY">
+-      <NameSurrogate>1</NameSurrogate>
+-      <Primary>1</Primary>
+-      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+-    </key>
+-    <column id="465" parent="319" name="id">
+-      <AutoIncrement>9</AutoIncrement>
+-      <Comment>编号</Comment>
+-      <DasType>bigint|0s</DasType>
+-      <NotNull>1</NotNull>
+-      <Position>1</Position>
+-    </column>
+-    <column id="466" parent="319" name="user_id">
+-      <Comment>用户id</Comment>
+-      <DasType>bigint|0s</DasType>
+-      <DefaultExpression>0</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <Position>2</Position>
+-    </column>
+-    <column id="467" parent="319" name="house_id">
+-      <Comment>房源id</Comment>
+-      <DasType>bigint|0s</DasType>
+-      <DefaultExpression>0</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <Position>3</Position>
+-    </column>
+-    <column id="468" parent="319" name="create_time">
+-      <Comment>创建时间</Comment>
+-      <DasType>timestamp|0s</DasType>
+-      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <Position>4</Position>
+-    </column>
+-    <column id="469" parent="319" name="update_time">
+-      <Comment>更新时间</Comment>
+-      <DasType>timestamp|0s</DasType>
+-      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <OnUpdate>CURRENT_TIMESTAMP</OnUpdate>
+-      <Position>5</Position>
+-    </column>
+-    <column id="470" parent="319" name="is_deleted">
+-      <Comment>逻辑删除(1:已删除，0:未删除)</Comment>
+-      <DasType>tinyint|0s</DasType>
+-      <DefaultExpression>0</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <Position>6</Position>
+-    </column>
+-    <index id="471" parent="319" name="PRIMARY">
+-      <ColNames>id</ColNames>
+-      <Type>btree</Type>
+-      <Unique>1</Unique>
+-    </index>
+-    <key id="472" parent="319" name="PRIMARY">
+-      <NameSurrogate>1</NameSurrogate>
+-      <Primary>1</Primary>
+-      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+-    </key>
+-    <column id="473" parent="320" name="id">
+-      <AutoIncrement>2</AutoIncrement>
+-      <Comment>编号</Comment>
+-      <DasType>bigint|0s</DasType>
+-      <NotNull>1</NotNull>
+-      <Position>1</Position>
+-    </column>
+-    <column id="474" parent="320" name="phone">
+-      <Comment>手机号</Comment>
+-      <DasType>varchar(11)|0s</DasType>
+-      <DefaultExpression>&apos;&apos;</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <Position>2</Position>
+-    </column>
+-    <column id="475" parent="320" name="password">
+-      <Comment>用户密码</Comment>
+-      <DasType>varchar(50)|0s</DasType>
+-      <DefaultExpression>&apos;&apos;</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <Position>3</Position>
+-    </column>
+-    <column id="476" parent="320" name="nick_name">
+-      <Comment>用户昵称</Comment>
+-      <DasType>varchar(20)|0s</DasType>
+-      <Position>4</Position>
+-    </column>
+-    <column id="477" parent="320" name="status">
+-      <Comment>状态（0：锁定 1：正常）</Comment>
+-      <DasType>tinyint|0s</DasType>
+-      <DefaultExpression>1</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <Position>5</Position>
+-    </column>
+-    <column id="478" parent="320" name="create_time">
+-      <Comment>创建时间</Comment>
+-      <DasType>timestamp|0s</DasType>
+-      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <Position>6</Position>
+-    </column>
+-    <column id="479" parent="320" name="update_time">
+-      <Comment>更新时间</Comment>
+-      <DasType>timestamp|0s</DasType>
+-      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <OnUpdate>CURRENT_TIMESTAMP</OnUpdate>
+-      <Position>7</Position>
+-    </column>
+-    <column id="480" parent="320" name="is_deleted">
+-      <Comment>逻辑删除(1:已删除，0:未删除)</Comment>
+-      <DasType>tinyint|0s</DasType>
+-      <DefaultExpression>0</DefaultExpression>
+-      <NotNull>1</NotNull>
+-      <Position>8</Position>
+-    </column>
+-    <index id="481" parent="320" name="PRIMARY">
+-      <ColNames>id</ColNames>
+-      <Type>btree</Type>
+-      <Unique>1</Unique>
+-    </index>
+-    <index id="482" parent="320" name="uk_mobile">
+-      <ColNames>phone</ColNames>
+-      <Type>btree</Type>
+-    </index>
+-    <key id="483" parent="320" name="PRIMARY">
+-      <NameSurrogate>1</NameSurrogate>
+-      <Primary>1</Primary>
+-      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+-    </key>
+-  </database-model>
+-</dataSource>
+\ No newline at end of file
+Index: .idea/libraries/Maven__com_alibaba_druid_1_1_12.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/libraries/Maven__com_alibaba_druid_1_1_12.xml b/.idea/libraries/Maven__com_alibaba_druid_1_1_12.xml
+deleted file mode 100644
+--- a/.idea/libraries/Maven__com_alibaba_druid_1_1_12.xml	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ /dev/null	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
+@@ -1,13 +0,0 @@
+-<component name="libraryTable">
+-  <library name="Maven: com.alibaba:druid:1.1.12">
+-    <CLASSES>
+-      <root url="jar://E:/maven_repository/com/alibaba/druid/1.1.12/druid-1.1.12.jar!/" />
+-    </CLASSES>
+-    <JAVADOC>
+-      <root url="jar://E:/maven_repository/com/alibaba/druid/1.1.12/druid-1.1.12-javadoc.jar!/" />
+-    </JAVADOC>
+-    <SOURCES>
+-      <root url="jar://E:/maven_repository/com/alibaba/druid/1.1.12/druid-1.1.12-sources.jar!/" />
+-    </SOURCES>
+-  </library>
+-</component>
+\ No newline at end of file
+Index: web-admin/src/main/java/com/gumsy/services/impl/RoleServicesImpl.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/web-admin/src/main/java/com/gumsy/services/impl/RoleServicesImpl.java b/web-admin/src/main/java/com/gumsy/service/impl/RoleServiceImpl.java
+rename from web-admin/src/main/java/com/gumsy/services/impl/RoleServicesImpl.java
+rename to web-admin/src/main/java/com/gumsy/service/impl/RoleServiceImpl.java
+--- a/web-admin/src/main/java/com/gumsy/services/impl/RoleServicesImpl.java	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ b/web-admin/src/main/java/com/gumsy/service/impl/RoleServiceImpl.java	(date 1676530820501)
+@@ -1,35 +1,22 @@
+-package com.gumsy.services.impl;
++package com.gumsy.service.impl;
+ 
+ import com.gumsy.dao.RoleDao;
+ import com.gumsy.entity.Role;
+-import com.gumsy.services.RoleServices;
++import com.gumsy.service.RoleService;
+ import org.springframework.beans.factory.annotation.Autowired;
+ import org.springframework.stereotype.Service;
+ 
+ import java.util.List;
+ 
+ @Service
+-public class RoleServicesImpl implements RoleServices {
++public class RoleServiceImpl implements RoleService {
+     @Autowired
+     private RoleDao roleDao;
+ 
+     @Override
+     public List<Role> findAll() {
++
+         return roleDao.findAll();
+     }
+ 
+-    @Override
+-    public Role findById(int id) {
+-        return null;
+-    }
+-
+-    @Override
+-    public void save(Role role) {
+-
+-    }
+-
+-    @Override
+-    public void deleteById(int id) {
+-
+-    }
+ }
+Index: web-admin/src/main/java/com/gumsy/service/RoleService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/web-admin/src/main/java/com/gumsy/service/RoleService.java b/web-admin/src/main/java/com/gumsy/service/RoleService.java
+new file mode 100644
+--- /dev/null	(date 1676530820412)
++++ b/web-admin/src/main/java/com/gumsy/service/RoleService.java	(date 1676530820412)
+@@ -0,0 +1,9 @@
++package com.gumsy.service;
++
++import com.gumsy.entity.Role;
++
++import java.util.List;
++
++public interface RoleService {
++    List<Role> findAll();
++}
+Index: web-admin/src/main/java/com/gumsy/controller/RoleController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/web-admin/src/main/java/com/gumsy/controller/RoleController.java b/web-admin/src/main/java/com/gumsy/controller/RoleController.java
+new file mode 100644
+--- /dev/null	(date 1676536709071)
++++ b/web-admin/src/main/java/com/gumsy/controller/RoleController.java	(date 1676536709071)
+@@ -0,0 +1,28 @@
++package com.gumsy.controller;
++import com.gumsy.entity.Role;
++import com.gumsy.service.RoleService;
++import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.stereotype.Controller;
++import org.springframework.web.bind.annotation.RequestMapping;
++
++import java.util.List;
++import java.util.Map;
++
++@Controller
++@RequestMapping("/role")
++public class RoleController {
++    @Autowired
++    private RoleService roleService;
++
++    @RequestMapping("/findAll")
++    public String findAll(Map map) {
++        //service的方法
++        List<Role> rolelist = roleService.findAll();
++        //放入ruquest域
++        map.put("list", rolelist);
++        //去往页面
++        return "role";
++
++    }
++
++}
+Index: web-admin/src/main/webapp/WEB-INF/templates/role.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/web-admin/src/main/webapp/WEB-INF/templates/role.html b/web-admin/src/main/webapp/WEB-INF/templates/role.html
+new file mode 100644
+--- /dev/null	(date 1676531069053)
++++ b/web-admin/src/main/webapp/WEB-INF/templates/role.html	(date 1676531069053)
+@@ -0,0 +1,18 @@
++<!DOCTYPE html>
++<html lang="en" xmlns:th="http://www.thymeleaf.org">
++<head>
++    <meta charset="UTF-8">
++    <title>Title</title>
++</head>
++<body>
++<table>
++    <tr th:each="item,it : ${list}">
++        <td class="text-center" th:text="${it.count}">11</td>
++        <td th:text="${item.roleName}">22</td>
++        <td th:text="${item.roleCode}">33</td>
++        <td th:text="${item.description}">33</td>
++        <td th:text="${#dates.format(item.createTime,'yyyy-MM-dd HH:mm:ss')}" >33</td>
++    </tr>
++</table>
++</body>
++</html>
+\ No newline at end of file
+Index: web-admin/target/classes/mapper/RoleMapper.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/web-admin/target/classes/mapper/RoleMapper.xml b/web-admin/target/classes/mapper/RoleMapper.xml
+new file mode 100644
+--- /dev/null	(date 1676531313812)
++++ b/web-admin/target/classes/mapper/RoleMapper.xml	(date 1676531313812)
+@@ -0,0 +1,20 @@
++<?xml version="1.0" encoding="UTF-8" ?>
++<!DOCTYPE mapper
++        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
++        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
++
++<mapper namespace="com.gumsy.dao.RoleDao">
++
++    <!-- 用于select查询公用抽取的列 -->
++    <sql id="columns">
++        select id,role_name,role_code,description,create_time,update_time,is_deleted
++    </sql>
++
++    <!--  select all -->
++    <select id="findAll" resultType="role">
++        <include refid="columns"/>
++        from acl_role
++            where is_deleted = 0
++    </select>
++
++</mapper>
+\ No newline at end of file
+Index: web-admin/target/classes/spring/spring-dao.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/web-admin/target/classes/spring/spring-dao.xml b/web-admin/target/classes/spring/spring-dao.xml
+new file mode 100644
+--- /dev/null	(date 1676535583030)
++++ b/web-admin/target/classes/spring/spring-dao.xml	(date 1676535583030)
+@@ -0,0 +1,43 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<beans xmlns="http://www.springframework.org/schema/beans"
++       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
++       xmlns:spring-mybatis="http://mybatis.org/schema/mybatis-spring"
++       xmlns:context="http://www.springframework.org/schema/context"
++       xsi:schemaLocation="http://www.springframework.org/schema/beans
++                     http://www.springframework.org/schema/beans/spring-beans.xsd
++                        http://www.springframework.org/schema/context
++                     http://www.springframework.org/schema/context/spring-context.xsd
++                     http://mybatis.org/schema/mybatis-spring
++                     http://mybatis.org/schema/mybatis-spring.xsd">
++
++    <!--引入外部配置文件-->
++    <context:property-placeholder location="classpath:db.properties"></context:property-placeholder>
++
++
++    <!--配置数据源-->
++    <bean class="com.alibaba.druid.pool.DruidDataSource" id="dataSource" destroy-method="close">
++        <!--配置连接数据库相关信息-->
++        <property name="driverClassName" value="${jdbc.driver}"/>
++        <property name="url" value="${jdbc.url}"/>
++        <property name="username" value="${jdbc.username}"/>
++        <property name="password" value="${jdbc.password}"/>
++    </bean>
++
++    <!--spring和mybatis整合的工厂bean-->
++    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
++        <!--数据源-->
++        <property name="dataSource" ref="dataSource" />
++        <!--配置给实体类包下所有的类起别名-->
++        <property name="typeAliasesPackage" value="com.gumsy.entity"></property>
++        <!--xml全局配置文件路径-->
++        <property name="configLocation" value="classpath:mybatis-config.xml" />
++        <!--配置Mapper映射文件的路径-->
++        <property name="mapperLocations">
++            <array>
++                <value>classpath:mapper/*.xml</value>
++            </array>
++        </property>
++    </bean>
++    <!--批量扫描接口生成代理对象-->
++    <spring-mybatis:scan base-package="com.gumsy.dao"></spring-mybatis:scan>
++</beans>
+\ No newline at end of file
+Index: web-admin/web-admin.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule=\"true\" type=\"JAVA_MODULE\" version=\"4\">\r\n  <component name=\"FacetManager\">\r\n    <facet type=\"web\" name=\"Web\">\r\n      <configuration>\r\n        <webroots>\r\n          <root url=\"file://$MODULE_DIR$/src/main/webapp\" relative=\"/\" />\r\n        </webroots>\r\n        <sourceRoots>\r\n          <root url=\"file://$MODULE_DIR$/src/main/java\" />\r\n          <root url=\"file://$MODULE_DIR$/src/main/resources\" />\r\n        </sourceRoots>\r\n      </configuration>\r\n    </facet>\r\n    <facet type=\"Spring\" name=\"Spring\">\r\n      <configuration />\r\n    </facet>\r\n  </component>\r\n  <component name=\"NewModuleRootManager\" LANGUAGE_LEVEL=\"JDK_1_8\">\r\n    <output url=\"file://$MODULE_DIR$/target/classes\" />\r\n    <output-test url=\"file://$MODULE_DIR$/target/test-classes\" />\r\n    <content url=\"file://$MODULE_DIR$\">\r\n      <sourceFolder url=\"file://$MODULE_DIR$/src/main/java\" isTestSource=\"false\" />\r\n      <sourceFolder url=\"file://$MODULE_DIR$/src/main/resources\" type=\"java-resource\" />\r\n      <sourceFolder url=\"file://$MODULE_DIR$/src/test/java\" isTestSource=\"true\" />\r\n      <sourceFolder url=\"file://$MODULE_DIR$/src/test/resources\" type=\"java-test-resource\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/target\" />\r\n    </content>\r\n    <orderEntry type=\"inheritedJdk\" />\r\n    <orderEntry type=\"sourceFolder\" forTests=\"false\" />\r\n    <orderEntry type=\"module\" module-name=\"common-util\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.springframework:spring-webmvc:5.2.7.RELEASE\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.springframework:spring-aop:5.2.7.RELEASE\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.springframework:spring-beans:5.2.7.RELEASE\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.springframework:spring-context:5.2.7.RELEASE\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.springframework:spring-core:5.2.7.RELEASE\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.springframework:spring-jcl:5.2.7.RELEASE\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.springframework:spring-expression:5.2.7.RELEASE\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.springframework:spring-web:5.2.7.RELEASE\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.springframework:spring-jdbc:5.2.7.RELEASE\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.springframework:spring-tx:5.2.7.RELEASE\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.springframework:spring-aspects:5.2.7.RELEASE\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.aspectj:aspectjweaver:1.9.5\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.springframework:spring-test:5.2.7.RELEASE\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.thymeleaf:thymeleaf-spring5:3.0.11.RELEASE\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.thymeleaf:thymeleaf:3.0.11.RELEASE\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.attoparser:attoparser:2.0.5.RELEASE\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.unbescape:unbescape:1.1.6.RELEASE\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: com.github.pagehelper:pagehelper:4.1.4\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: com.github.jsqlparser:jsqlparser:0.9.5\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.mybatis:mybatis:3.4.5\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.mybatis:mybatis-spring:1.3.1\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: mysql:mysql-connector-java:8.0.18\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: com.google.protobuf:protobuf-java:3.6.1\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: com.alibaba:druid:1.1.12\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: commons-fileupload:commons-fileupload:1.3.1\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: commons-io:commons-io:2.2\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: com.alibaba:fastjson:1.2.29\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.slf4j:slf4j-api:1.7.30\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: ch.qos.logback:logback-classic:1.2.3\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: ch.qos.logback:logback-core:1.2.3\" level=\"project\" />\r\n    <orderEntry type=\"module\" module-name=\"model\" />\r\n    <orderEntry type=\"library\" scope=\"PROVIDED\" name=\"Maven: javax.servlet:servlet-api:2.5\" level=\"project\" />\r\n  </component>\r\n</module>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/web-admin/web-admin.iml b/web-admin/web-admin.iml
+--- a/web-admin/web-admin.iml	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ b/web-admin/web-admin.iml	(date 1676547345988)
+@@ -3,6 +3,9 @@
+   <component name="FacetManager">
+     <facet type="web" name="Web">
+       <configuration>
++        <descriptors>
++          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/src/main/webapp/WEB-INF/web.xml" />
++        </descriptors>
+         <webroots>
+           <root url="file://$MODULE_DIR$/src/main/webapp" relative="/" />
+         </webroots>
+Index: web-admin/target/classes/spring/spring-mvc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/web-admin/target/classes/spring/spring-mvc.xml b/web-admin/target/classes/spring/spring-mvc.xml
+new file mode 100644
+--- /dev/null	(date 1676536404808)
++++ b/web-admin/target/classes/spring/spring-mvc.xml	(date 1676536404808)
+@@ -0,0 +1,62 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<beans xmlns="http://www.springframework.org/schema/beans"
++       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
++       xmlns:context="http://www.springframework.org/schema/context"
++       xmlns:aop="http://www.springframework.org/schema/aop"
++       xmlns:mvc="http://www.springframework.org/schema/mvc"
++       xsi:schemaLocation="http://www.springframework.org/schema/beans
++        http://www.springframework.org/schema/beans/spring-beans.xsd
++        http://www.springframework.org/schema/context
++        http://www.springframework.org/schema/context/spring-context.xsd
++        http://www.springframework.org/schema/aop
++        http://www.springframework.org/schema/aop/spring-aop.xsd
++        http://www.springframework.org/schema/mvc
++        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
++    <!--包扫描-->
++    <context:component-scan base-package="com.gumsy.controller,com.gumsy.service" />
++
++    <!-- 没有匹配上的url全部按默认方式（就是直接访问）访问，避免拦截静态资源 -->
++    <mvc:default-servlet-handler/>
++    <!-- 开启mvc注解-->
++    <mvc:annotation-driven>
++        <mvc:message-converters register-defaults="true">
++            <!-- 配置Fastjson支持 -->
++            <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
++                <property name="supportedMediaTypes">
++                    <list>
++                        <value>text/html;charset=UTF-8</value>
++                        <value>application/json</value>
++                    </list>
++                </property>
++            </bean>
++        </mvc:message-converters>
++    </mvc:annotation-driven>
++
++    <!--视图解析器-->
++    <bean id="templateResolver" class="org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver">
++        <!--配置前缀-->
++        <property name="prefix" value="/WEB-INF/templates/"></property>
++        <!--配置后缀-->
++        <property name="suffix" value=".html"></property>
++        <!--配置编码格式-->
++        <property name="characterEncoding" value="UTF-8"></property>
++        <!--设置缓存为null-->
++        <property name="cacheable" value="false"></property>
++        <!--配置模板模式,
++        HTML5:表示严格模式
++        LEGACYHTML5：表示宽松模式-->
++        <property name="templateMode" value="LEGACYHTML5"></property>
++    </bean>
++    <!--配置spring的视图解析器  -->
++    <bean id="viewResolver" class="org.thymeleaf.spring5.view.ThymeleafViewResolver">
++        <!--设置编码格式-->
++        <property name="characterEncoding" value="UTF-8"></property>
++        <!--设置模板引擎-->
++        <property name="templateEngine" ref="templateEngine"/>
++    </bean>
++    <!--配置模板引擎-->
++    <bean id="templateEngine" class="org.thymeleaf.spring5.SpringTemplateEngine">
++        <!--引用视图解析器-->
++        <property name="templateResolver" ref="templateResolver"></property>
++    </bean>
++</beans>
+\ No newline at end of file
+Index: web-admin/target/classes/mybatis-config.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/web-admin/target/classes/mybatis-config.xml b/web-admin/target/classes/mybatis-config.xml
+new file mode 100644
+--- /dev/null	(date 1676531313816)
++++ b/web-admin/target/classes/mybatis-config.xml	(date 1676531313816)
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="UTF-8" ?>
++<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
++        "http://mybatis.org/dtd/mybatis-3-config.dtd">
++<configuration>
++    <!--开启驼峰命名自动映射-->
++    <settings>
++        <setting name="mapUnderscoreToCamelCase" value="true"/>
++    </settings>
++</configuration>
+\ No newline at end of file
+Index: web-admin/target/classes/spring/sprig-service.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/web-admin/target/classes/spring/sprig-service.xml b/web-admin/target/classes/spring/sprig-service.xml
+new file mode 100644
+--- /dev/null	(date 1676535931314)
++++ b/web-admin/target/classes/spring/sprig-service.xml	(date 1676535931314)
+@@ -0,0 +1,22 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<beans xmlns="http://www.springframework.org/schema/beans"
++       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
++       xmlns:tx="http://www.springframework.org/schema/tx"
++       xmlns:context="http://www.springframework.org/schema/context"
++       xsi:schemaLocation="http://www.springframework.org/schema/beans
++                        http://www.springframework.org/schema/beans/spring-beans.xsd
++                        http://www.springframework.org/schema/context
++                        http://www.springframework.org/schema/context/spring-context.xsd
++                        http://www.springframework.org/schema/tx
++                        http://www.springframework.org/schema/tx/spring-tx.xsd">
++    <!-- 扫描service包
++    <context:component-scan base-package="com.gumsy.service"/> -->
++
++    <!-- 事务管理器  -->
++    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
++        <!--数据源-->
++        <property name="dataSource" ref="dataSource"/>
++    </bean>
++<!--        事务注解支持-->
++    <tx:annotation-driven transaction-manager="transactionManager"/>
++</beans>
+\ No newline at end of file
+Index: web-admin/target/classes/logback.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/web-admin/target/classes/logback.xml b/web-admin/target/classes/logback.xml
+new file mode 100644
+--- /dev/null	(date 1676531313805)
++++ b/web-admin/target/classes/logback.xml	(date 1676531313805)
+@@ -0,0 +1,19 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<configuration debug="false">
++
++    <!--定义日志文件的存储地址 logs为当前项目的logs目录 还可以设置为../logs -->
++    <property name="LOG_HOME" value="logs" />
++
++    <!--控制台日志， 控制台输出 -->
++    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
++        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
++            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度,%msg：日志消息，%n是换行符-->
++            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
++        </encoder>
++    </appender>
++
++    <!-- 日志输出级别 -->
++    <root level="DEBUG">
++        <appender-ref ref="STDOUT" />
++    </root>
++</configuration>
+\ No newline at end of file
+Index: web-admin/target/classes/db.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+diff --git a/web-admin/target/classes/db.properties b/web-admin/target/classes/db.properties
+new file mode 100644
+--- /dev/null	(date 1676536610729)
++++ b/web-admin/target/classes/db.properties	(date 1676536610729)
+@@ -0,0 +1,4 @@
++jdbc.driver=com.mysql.cj.jdbc.Driver
++jdbc.url=jdbc:mysql://localhost:3306/db_house?serverTimezone=Asia/Shanghai
++jdbc.username=root
++jdbc.password=123456
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"44532257-4765-4170-8f2b-ce3d57cd5c1e\" name=\"Changes\" comment=\"\" />\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"spring-beans.schema\" />\r\n        <option value=\"Tag Library Descriptor\" />\r\n        <option value=\"Interface\" />\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"MavenImportPreferences\">\r\n    <option name=\"generalSettings\">\r\n      <MavenGeneralSettings>\r\n        <option name=\"localRepository\" value=\"E:\\maven_repository\" />\r\n        <option name=\"useMavenConfig\" value=\"true\" />\r\n      </MavenGeneralSettings>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2LlEUWxhsGgugJDi3qqxuE4OaP8\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"WebServerToolWindowFactoryState\": \"false\",\r\n    \"jdk.selected.JAVA_MODULE\": \"1.8\",\r\n    \"last_opened_file_path\": \"C:/Users/myxmu/Desktop/workspace/java/wuye-parent\",\r\n    \"node.js.detected.package.eslint\": \"true\",\r\n    \"node.js.detected.package.tslint\": \"true\",\r\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\r\n    \"node.js.selected.package.tslint\": \"(autodetect)\",\r\n    \"project.structure.last.edited\": \"Modules\",\r\n    \"project.structure.proportion\": \"0.0\",\r\n    \"project.structure.side.proportion\": \"0.0\",\r\n    \"settings.editor.selected.configurable\": \"org.jetbrains.plugins.github.ui.GithubSettingsConfigurable\",\r\n    \"spring.configuration.checksum\": \"becf5f7a7b5fd9e53ff08a50a75c9998\",\r\n    \"vue.rearranger.settings.migration\": \"true\"\r\n  },\r\n  \"keyToStringList\": {\r\n    \"DatabaseDriversLRU\": [\r\n      \"mysql\"\r\n    ]\r\n  }\r\n}]]></component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\myxmu\\Desktop\\workspace\\java\\wuye-parent\\model\\src\\main\\java\\com\\gumsy\\vo\" />\r\n      <recent name=\"C:\\Users\\myxmu\\Desktop\\workspace\\java\\wuye-parent\\model\\src\\main\\java\\com\\gumsy\\entity\" />\r\n      <recent name=\"C:\\Users\\myxmu\\Desktop\\workspace\\java\\wuye-parent\\common-util\\src\\main\\java\\com\\gumsy\\util\" />\r\n      <recent name=\"C:\\Users\\myxmu\\Desktop\\workspace\\java\\wuye-parent\\common-util\\src\\main\\java\\com\\gumsy\\result\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\">\r\n    <configuration default=\"true\" type=\"JetRunConfigurationType\">\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration default=\"true\" type=\"KotlinStandaloneScriptRunConfigurationType\">\r\n      <option name=\"filePath\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"44532257-4765-4170-8f2b-ce3d57cd5c1e\" name=\"Changes\" comment=\"\" />\r\n      <created>1676437287398</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1676437287398</updated>\r\n      <workItem from=\"1676437288440\" duration=\"1377000\" />\r\n      <workItem from=\"1676438692024\" duration=\"255000\" />\r\n      <workItem from=\"1676438983530\" duration=\"8568000\" />\r\n      <workItem from=\"1676448082528\" duration=\"674000\" />\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 8835f46f589d2b12f73d00e2014e23513e654cd4)
++++ b/.idea/workspace.xml	(date 1676547347417)
+@@ -4,7 +4,88 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="44532257-4765-4170-8f2b-ce3d57cd5c1e" name="Changes" comment="" />
++    <list default="true" id="44532257-4765-4170-8f2b-ce3d57cd5c1e" name="Changes" comment="环境测试">
++      <change afterPath="$PROJECT_DIR$/web-admin/src/main/java/com/gumsy/controller/RoleController.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/web-admin/src/main/java/com/gumsy/service/RoleService.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/WEB-INF/templates/role.html" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/web-admin/target/classes/com/gumsy/controller/RoleController.class" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/web-admin/target/classes/com/gumsy/dao/RoleDao.class" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/web-admin/target/classes/com/gumsy/service/RoleService.class" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/web-admin/target/classes/com/gumsy/service/impl/RoleServiceImpl.class" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/web-admin/target/classes/com/gumsy/services/RoleService.class" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/web-admin/target/classes/com/gumsy/services/impl/RoleServiceImpl.class" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/web-admin/target/classes/db.properties" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/web-admin/target/classes/logback.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/web-admin/target/classes/mapper/RoleMapper.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/web-admin/target/classes/mybatis-config.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/web-admin/target/classes/spring/sprig-service.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/web-admin/target/classes/spring/spring-dao.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/web-admin/target/classes/spring/spring-mvc.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/web-admin/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/web-admin/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/web-admin/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/artifacts/web_admin_war.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/artifacts/web_admin_war_exploded.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/dataSources/2800e6b2-bc5f-484e-82b3-5758be8c34e3.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/dataSources/2800e6b2-bc5f-484e-82b3-5758be8c34e3/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/dataSources/2800e6b2-bc5f-484e-82b3-5758be8c34e3/storage_v2/_src_/schema/information_schema.FNRwLQ.zip" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/dataSources/2800e6b2-bc5f-484e-82b3-5758be8c34e3/storage_v2/_src_/schema/mysql.osA4Bg.meta" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/dataSources/2800e6b2-bc5f-484e-82b3-5758be8c34e3/storage_v2/_src_/schema/performance_schema.kIw0nw.meta" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/dataSources/2800e6b2-bc5f-484e-82b3-5758be8c34e3/storage_v2/_src_/schema/sakila.oXLGyQ.meta" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/dataSources/2800e6b2-bc5f-484e-82b3-5758be8c34e3/storage_v2/_src_/schema/sakila.oXLGyQ.zip" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/dataSources/2800e6b2-bc5f-484e-82b3-5758be8c34e3/storage_v2/_src_/schema/sys.zb4BAA.meta" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/dataSources/2800e6b2-bc5f-484e-82b3-5758be8c34e3/storage_v2/_src_/schema/sys.zb4BAA.zip" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_classic_1_2_3.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_core_1_2_3.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_alibaba_druid_1_1_12.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_alibaba_fastjson_1_2_29.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_jsqlparser_jsqlparser_0_9_5.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_pagehelper_pagehelper_4_1_4.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_protobuf_protobuf_java_3_6_1.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_fileupload_commons_fileupload_1_3_1.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_io_commons_io_2_2.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_servlet_servlet_api_2_5.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__mysql_mysql_connector_java_8_0_18.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_aspectj_aspectjweaver_1_9_5.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_attoparser_attoparser_2_0_5_RELEASE.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_mybatis_mybatis_3_4_5.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_mybatis_mybatis_spring_1_3_1.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_30.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aop_5_2_7_RELEASE.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aspects_5_2_7_RELEASE.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_beans_5_2_7_RELEASE.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_5_2_7_RELEASE.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_core_5_2_7_RELEASE.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_expression_5_2_7_RELEASE.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jcl_5_2_7_RELEASE.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jdbc_5_2_7_RELEASE.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_test_5_2_7_RELEASE.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_tx_5_2_7_RELEASE.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_web_5_2_7_RELEASE.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_webmvc_5_2_7_RELEASE.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_thymeleaf_thymeleaf_3_0_11_RELEASE.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_thymeleaf_thymeleaf_spring5_3_0_11_RELEASE.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_unbescape_unbescape_1_1_6_RELEASE.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/web-admin/src/main/java/com/gumsy/services/RoleServices.java" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/web-admin/src/main/java/com/gumsy/services/impl/RoleServicesImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/web-admin/src/main/java/com/gumsy/service/impl/RoleServiceImpl.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/web-admin/src/main/resources/db.properties" beforeDir="false" afterPath="$PROJECT_DIR$/web-admin/src/main/resources/db.properties" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/web-admin/src/main/resources/mapper/RoleMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/web-admin/src/main/resources/mapper/RoleMapper.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/web-admin/src/main/resources/spring/sprig-service.xml" beforeDir="false" afterPath="$PROJECT_DIR$/web-admin/src/main/resources/spring/sprig-service.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/web-admin/src/main/resources/spring/spring-dao.xml" beforeDir="false" afterPath="$PROJECT_DIR$/web-admin/src/main/resources/spring/spring-dao.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/web-admin/src/main/resources/spring/spring-mvc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/web-admin/src/main/resources/spring/spring-mvc.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/web-admin/src/main/webapp/WEB-INFO/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/web-admin/web-admin.iml" beforeDir="false" afterPath="$PROJECT_DIR$/web-admin/web-admin.iml" afterDir="false" />
++    </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+@@ -16,12 +97,14 @@
+         <option value="spring-beans.schema" />
+         <option value="Tag Library Descriptor" />
+         <option value="Interface" />
++        <option value="HTML File" />
+         <option value="Class" />
+       </list>
+     </option>
+   </component>
+   <component name="Git.Settings">
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
++    <option name="RESET_MODE" value="HARD" />
+   </component>
+   <component name="MarkdownSettingsMigration">
+     <option name="stateVersion" value="1" />
+@@ -40,30 +123,31 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent"><![CDATA[{
+-  "keyToString": {
+-    "RunOnceActivity.OpenProjectViewOnStart": "true",
+-    "RunOnceActivity.ShowReadmeOnStart": "true",
+-    "WebServerToolWindowFactoryState": "false",
+-    "jdk.selected.JAVA_MODULE": "1.8",
+-    "last_opened_file_path": "C:/Users/myxmu/Desktop/workspace/java/wuye-parent",
+-    "node.js.detected.package.eslint": "true",
+-    "node.js.detected.package.tslint": "true",
+-    "node.js.selected.package.eslint": "(autodetect)",
+-    "node.js.selected.package.tslint": "(autodetect)",
+-    "project.structure.last.edited": "Modules",
+-    "project.structure.proportion": "0.0",
+-    "project.structure.side.proportion": "0.0",
+-    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
+-    "spring.configuration.checksum": "becf5f7a7b5fd9e53ff08a50a75c9998",
+-    "vue.rearranger.settings.migration": "true"
++  <component name="PropertiesComponent">{
++  &quot;keyToString&quot;: {
++    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
++    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
++    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
++    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;1.8&quot;,
++    &quot;last_opened_file_path&quot;: &quot;C:/Users/myxmu/Desktop/workspace/java/wuye-parent&quot;,
++    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
++    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
++    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
++    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
++    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
++    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
++    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
++    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
++    &quot;spring.configuration.checksum&quot;: &quot;becf5f7a7b5fd9e53ff08a50a75c9998&quot;,
++    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+   },
+-  "keyToStringList": {
+-    "DatabaseDriversLRU": [
+-      "mysql"
++  &quot;keyToStringList&quot;: {
++    &quot;DatabaseDriversLRU&quot;: [
++      &quot;mysql&quot;
+     ]
+   }
+-}]]></component>
++}</component>
+   <component name="RecentsManager">
+     <key name="CopyFile.RECENT_KEYS">
+       <recent name="C:\Users\myxmu\Desktop\workspace\java\wuye-parent\model\src\main\java\com\gumsy\vo" />
+@@ -83,6 +167,29 @@
+       <method v="2">
+         <option name="Make" enabled="true" />
+       </method>
++    </configuration>
++    <configuration name="wuye-parent" type="MavenRunConfiguration" factoryName="Maven" nameIsGenerated="true">
++      <MavenSettings>
++        <option name="myGeneralSettings" />
++        <option name="myRunnerSettings" />
++        <option name="myRunnerParameters">
++          <MavenRunnerParameters>
++            <option name="profiles">
++              <set />
++            </option>
++            <option name="goals">
++              <list />
++            </option>
++            <option name="pomFileName" />
++            <option name="profilesMap">
++              <map />
++            </option>
++            <option name="resolveToWorkspace" value="false" />
++            <option name="workingDirPath" value="$PROJECT_DIR$" />
++          </MavenRunnerParameters>
++        </option>
++      </MavenSettings>
++      <method v="2" />
+     </configuration>
+   </component>
+   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+@@ -97,10 +204,22 @@
+       <workItem from="1676438692024" duration="255000" />
+       <workItem from="1676438983530" duration="8568000" />
+       <workItem from="1676448082528" duration="674000" />
++      <workItem from="1676533140270" duration="3663000" />
+     </task>
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+     <option name="version" value="3" />
+   </component>
++  <component name="Vcs.Log.Tabs.Properties">
++    <option name="TAB_STATES">
++      <map>
++        <entry key="MAIN">
++          <value>
++            <State />
++          </value>
++        </entry>
++      </map>
++    </option>
++  </component>
+ </project>
+\ No newline at end of file
+Index: web-admin/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/web-admin/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst b/web-admin/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+new file mode 100644
+--- /dev/null	(date 1676536860913)
++++ b/web-admin/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst	(date 1676536860913)
+@@ -0,0 +1,4 @@
++C:\Users\myxmu\Desktop\workspace\java\wuye-parent\web-admin\src\main\java\com\gumsy\dao\RoleDao.java
++C:\Users\myxmu\Desktop\workspace\java\wuye-parent\web-admin\src\main\java\com\gumsy\controller\RoleController.java
++C:\Users\myxmu\Desktop\workspace\java\wuye-parent\web-admin\src\main\java\com\gumsy\service\RoleService.java
++C:\Users\myxmu\Desktop\workspace\java\wuye-parent\web-admin\src\main\java\com\gumsy\service\impl\RoleServiceImpl.java
+Index: web-admin/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/web-admin/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst b/web-admin/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+new file mode 100644
+--- /dev/null	(date 1676536713315)
++++ b/web-admin/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst	(date 1676536713315)
+@@ -0,0 +1,4 @@
++com\gumsy\service\RoleService.class
++com\gumsy\service\impl\RoleServiceImpl.class
++com\gumsy\dao\RoleDao.class
++com\gumsy\controller\RoleController.class
+diff --git a/web-admin/src/main/webapp/WEB-INFO/web.xml b/web-admin/src/main/webapp/WEB-INF/web.xml
+rename from web-admin/src/main/webapp/WEB-INFO/web.xml
+rename to web-admin/src/main/webapp/WEB-INF/web.xml
+diff --git a/web-admin/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst b/web-admin/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst
+new file mode 100644

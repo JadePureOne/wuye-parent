@@ -1,4 +1,4 @@
-com\gumsy\services\impl\RoleServicesImpl.class
+com\gumsy\service\RoleService.class
+com\gumsy\service\impl\RoleServiceImpl.class
 com\gumsy\dao\RoleDao.class
-com\gumsy\services\RoleServices.class
 com\gumsy\controller\RoleController.class

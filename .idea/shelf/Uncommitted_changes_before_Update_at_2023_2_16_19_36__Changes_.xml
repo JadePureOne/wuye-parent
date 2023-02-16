@@ -1,0 +1,74 @@
+<changelist name="Uncommitted_changes_before_Update_at_2023_2_16_19_36_[Changes]" date="1676547648875" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2023_2_16_19_36_[Changes]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 2023/2/16 19:36 [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="web-admin/target/classes/com/gumsy/services/impl/RoleServiceImpl.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2023_2_16_19_36_[Changes]/RoleServiceImpl.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="web-admin/target/classes/com/gumsy/controller/RoleController.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2023_2_16_19_36_[Changes]/RoleController.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="web-admin/target/classes/com/gumsy/service/impl/RoleServiceImpl.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2023_2_16_19_36_[Changes]/RoleServiceImpl1.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value=".idea/dataSources/2800e6b2-bc5f-484e-82b3-5758be8c34e3/storage_v2/_src_/schema/sys.zb4BAA.zip" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value=".idea/dataSources/2800e6b2-bc5f-484e-82b3-5758be8c34e3/storage_v2/_src_/schema/sys.zb4BAA.meta" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="web-admin/target/classes/com/gumsy/services/RoleService.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2023_2_16_19_36_[Changes]/RoleService.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="web-admin/target/classes/com/gumsy/service/RoleService.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2023_2_16_19_36_[Changes]/RoleService1.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value=".idea/dataSources/2800e6b2-bc5f-484e-82b3-5758be8c34e3/storage_v2/_src_/schema/sakila.oXLGyQ.meta" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value=".idea/dataSources/2800e6b2-bc5f-484e-82b3-5758be8c34e3/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value=".idea/dataSources/2800e6b2-bc5f-484e-82b3-5758be8c34e3/storage_v2/_src_/schema/sakila.oXLGyQ.zip" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="web-admin/target/classes/com/gumsy/dao/RoleDao.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2023_2_16_19_36_[Changes]/RoleDao.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value=".idea/dataSources/2800e6b2-bc5f-484e-82b3-5758be8c34e3/storage_v2/_src_/schema/performance_schema.kIw0nw.meta" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value=".idea/dataSources/2800e6b2-bc5f-484e-82b3-5758be8c34e3/storage_v2/_src_/schema/mysql.osA4Bg.meta" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value=".idea/dataSources/2800e6b2-bc5f-484e-82b3-5758be8c34e3/storage_v2/_src_/schema/information_schema.FNRwLQ.zip" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+</changelist>
