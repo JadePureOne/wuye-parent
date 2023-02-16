@@ -4,84 +4,555 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="44532257-4765-4170-8f2b-ce3d57cd5c1e" name="Changes" comment="环境测试">
-      <change afterPath="$PROJECT_DIR$/web-admin/src/main/java/com/gumsy/service/RoleService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web-admin/target/classes/com/gumsy/service/RoleService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web-admin/target/classes/com/gumsy/service/impl/RoleServiceImpl.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web-admin/target/classes/com/gumsy/services/RoleService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web-admin/target/classes/com/gumsy/services/impl/RoleServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/web_admin_war.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/web_admin_war_exploded.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/2800e6b2-bc5f-484e-82b3-5758be8c34e3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/2800e6b2-bc5f-484e-82b3-5758be8c34e3/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/2800e6b2-bc5f-484e-82b3-5758be8c34e3/storage_v2/_src_/schema/information_schema.FNRwLQ.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/2800e6b2-bc5f-484e-82b3-5758be8c34e3/storage_v2/_src_/schema/mysql.osA4Bg.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/2800e6b2-bc5f-484e-82b3-5758be8c34e3/storage_v2/_src_/schema/performance_schema.kIw0nw.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/2800e6b2-bc5f-484e-82b3-5758be8c34e3/storage_v2/_src_/schema/sakila.oXLGyQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/2800e6b2-bc5f-484e-82b3-5758be8c34e3/storage_v2/_src_/schema/sakila.oXLGyQ.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/2800e6b2-bc5f-484e-82b3-5758be8c34e3/storage_v2/_src_/schema/sys.zb4BAA.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/2800e6b2-bc5f-484e-82b3-5758be8c34e3/storage_v2/_src_/schema/sys.zb4BAA.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_classic_1_2_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_core_1_2_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_alibaba_druid_1_1_12.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_alibaba_fastjson_1_2_29.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_jsqlparser_jsqlparser_0_9_5.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_pagehelper_pagehelper_4_1_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_protobuf_protobuf_java_3_6_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_fileupload_commons_fileupload_1_3_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_io_commons_io_2_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_servlet_servlet_api_2_5.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__mysql_mysql_connector_java_8_0_18.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_aspectj_aspectjweaver_1_9_5.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_attoparser_attoparser_2_0_5_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_mybatis_mybatis_3_4_5.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_mybatis_mybatis_spring_1_3_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_30.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aop_5_2_7_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aspects_5_2_7_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_beans_5_2_7_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_5_2_7_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_core_5_2_7_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_expression_5_2_7_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jcl_5_2_7_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jdbc_5_2_7_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_test_5_2_7_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_tx_5_2_7_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_web_5_2_7_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_webmvc_5_2_7_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_thymeleaf_thymeleaf_3_0_11_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_thymeleaf_thymeleaf_spring5_3_0_11_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_unbescape_unbescape_1_1_6_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+    <list default="true" id="44532257-4765-4170-8f2b-ce3d57cd5c1e" name="Changes" comment="继承hplus框架">
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/web_admin_war.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/web_admin_war_exploded.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/java/com/gumsy/controller/IndexController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/WEB-INF/templates/frame/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/WEB-INF/templates/frame/main.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/animate.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/bootstrap-rtl.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/bootstrap.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/demo/webuploader-demo.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/font-awesome.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/font-awesome.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/jquery.contextMenu.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/login.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/patterns/header-profile-skin-1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/patterns/header-profile-skin-3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/patterns/header-profile.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/patterns/shattered.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/blueimp/css/blueimp-gallery-indicator.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/blueimp/css/blueimp-gallery-video.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/blueimp/css/blueimp-gallery.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/blueimp/css/blueimp-gallery.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/blueimp/css/demo.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/blueimp/img/error.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/blueimp/img/error.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/blueimp/img/loading.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/blueimp/img/play-pause.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/blueimp/img/play-pause.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/blueimp/img/video-play.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/blueimp/img/video-play.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/bootstrap-table/bootstrap-table.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/chosen/chosen-sprite.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/chosen/chosen-sprite@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/chosen/chosen.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/clockpicker/clockpicker.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/codemirror/ambiance.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/codemirror/codemirror.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/colorpicker/css/bootstrap-colorpicker.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/colorpicker/img/bootstrap-colorpicker/alpha-horizontal.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/colorpicker/img/bootstrap-colorpicker/alpha.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/colorpicker/img/bootstrap-colorpicker/hue-horizontal.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/colorpicker/img/bootstrap-colorpicker/hue.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/colorpicker/img/bootstrap-colorpicker/saturation.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/cropper/cropper.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/dataTables/dataTables.bootstrap.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/datapicker/datepicker3.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/dropzone/basic.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/dropzone/dropzone.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/duallistbox/bootstrap-duallistbox.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/footable/fonts/footable.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/footable/fonts/footable.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/footable/fonts/footable.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/footable/fonts/footable.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/footable/footable.core.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/fullcalendar/fullcalendar.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/fullcalendar/fullcalendar.print.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/iCheck/custom.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/iCheck/green.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/iCheck/green@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/images/sort_asc.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/images/sort_desc.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/images/sprite-skin-flat.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/images/spritemap.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/images/spritemap@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/ionRangeSlider/ion.rangeSlider.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/ionRangeSlider/ion.rangeSlider.skinFlat.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/jQueryUI/images/ui-bg_flat_0_aaaaaa_40x100.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/jQueryUI/images/ui-bg_flat_75_ffffff_40x100.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/jQueryUI/images/ui-icons_222222_256x240.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/jQueryUI/images/ui-icons_454545_256x240.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/jQueryUI/images/ui-icons_888888_256x240.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/jQueryUI/jquery-ui-1.10.4.custom.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/jasny/jasny-bootstrap.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/jqgrid/ui.jqgrid.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/jsTree/32px.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/jsTree/style.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/jsTree/throbber.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/markdown/bootstrap-markdown.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/morris/morris-0.4.3.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/multiselect/bootstrap-multiselect.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/nouslider/jquery.nouislider.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/plyr/plyr.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/plyr/sprite.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/simditor/simditor.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/steps/jquery.steps.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/summernote/font/summernote.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/summernote/font/summernote.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/summernote/font/summernote.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/summernote/summernote-bs3.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/summernote/summernote.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/sweetalert/sweetalert.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/switchery/switchery.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/toastr/toastr.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/treeview/bootstrap-treeview.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/plugins/webuploader/webuploader.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/css/style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/fonts/FontAwesome.otf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/fonts/fontawesome-webfont.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/fonts/fontawesome-webfont.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/fonts/fontawesome-webfont.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/fonts/fontawesome-webfont.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/fonts/fontawesome-webfont.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/fonts/glyphicons-halflings-regular.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/fonts/glyphicons-halflings-regular.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/fonts/glyphicons-halflings-regular.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/fonts/glyphicons-halflings-regular.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/fonts/glyphicons-halflings-regular.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/img/a1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/img/a2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/img/a3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/img/a4.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/img/a5.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/img/a6.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/img/a7.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/img/a8.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/img/a9.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/img/bg.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/img/browser.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/img/browser.psd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/img/donate-qrcode.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/img/iconfont-logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/img/icons.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/img/index.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/img/index_4.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/img/loading-upload.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/img/locked.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/img/login-background.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/img/p1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/img/p2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/img/p3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/img/p_big1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/img/p_big2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/img/p_big3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/img/profile.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/img/profile_big.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/img/profile_small.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/img/progress.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/img/qr_code.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/img/sprite-skin-flat.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/img/success.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/img/user.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/img/webuploader.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/img/wenku_logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/bootstrap.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/contabs.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/content.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/demo/bootstrap-table-demo.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/demo/bootstrap_table_test.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/demo/bootstrap_table_test2.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/demo/echarts-demo.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/demo/flot-demo.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/demo/form-advanced-demo.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/demo/form-validate-demo.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/demo/layer-demo.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/demo/morris-demo.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/demo/peity-demo.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/demo/photos.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/demo/rickshaw-demo.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/demo/sparkline-demo.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/demo/table_base.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/demo/treeview-demo.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/demo/webuploader-demo.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/hplus.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/jquery-ui-1.10.4.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/jquery-ui.custom.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/jquery.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/jquery.min.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/jquery.pjax.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/beautifyhtml/beautifyhtml.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/blueimp/jquery.blueimp-gallery.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/bootstrap-table/bootstrap-table.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/chartJs/Chart.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/chosen/chosen.jquery.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/clockpicker/clockpicker.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/codemirror.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/apl/apl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/apl/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/asterisk/asterisk.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/asterisk/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/clike/clike.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/clike/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/clike/scala.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/clojure/clojure.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/clojure/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/cobol/cobol.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/cobol/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/coffeescript/coffeescript.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/coffeescript/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/commonlisp/commonlisp.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/commonlisp/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/css/css.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/css/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/css/less.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/css/less_test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/css/scss.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/css/scss_test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/css/test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/cypher/cypher.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/cypher/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/d/d.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/d/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/dart/dart.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/dart/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/diff/diff.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/diff/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/django/django.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/django/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/dockerfile/dockerfile.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/dockerfile/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/dtd/dtd.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/dtd/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/dylan/dylan.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/dylan/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/ebnf/ebnf.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/ebnf/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/ecl/ecl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/ecl/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/eiffel/eiffel.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/eiffel/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/erlang/erlang.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/erlang/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/fortran/fortran.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/fortran/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/gas/gas.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/gas/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/gfm/gfm.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/gfm/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/gfm/test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/gherkin/gherkin.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/gherkin/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/go/go.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/go/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/groovy/groovy.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/groovy/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/haml/haml.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/haml/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/haml/test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/haskell/haskell.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/haskell/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/haxe/haxe.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/haxe/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/htmlembedded/htmlembedded.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/htmlembedded/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/htmlmixed/htmlmixed.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/htmlmixed/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/http/http.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/http/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/idl/idl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/idl/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/jade/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/jade/jade.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/javascript/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/javascript/javascript.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/javascript/json-ld.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/javascript/test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/javascript/typescript.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/jinja2/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/jinja2/jinja2.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/julia/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/julia/julia.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/kotlin/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/kotlin/kotlin.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/livescript/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/livescript/livescript.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/lua/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/lua/lua.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/markdown/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/markdown/markdown.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/markdown/test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/meta.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/mirc/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/mirc/mirc.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/mllike/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/mllike/mllike.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/modelica/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/modelica/modelica.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/nginx/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/nginx/nginx.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/ntriples/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/ntriples/ntriples.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/octave/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/octave/octave.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/pascal/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/pascal/pascal.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/pegjs/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/pegjs/pegjs.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/perl/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/perl/perl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/php/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/php/php.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/php/test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/pig/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/pig/pig.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/properties/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/properties/properties.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/puppet/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/puppet/puppet.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/python/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/python/python.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/q/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/q/q.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/r/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/r/r.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/rpm/changes/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/rpm/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/rpm/rpm.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/rst/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/rst/rst.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/ruby/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/ruby/ruby.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/ruby/test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/rust/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/rust/rust.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/sass/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/sass/sass.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/scheme/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/scheme/scheme.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/shell/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/shell/shell.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/shell/test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/sieve/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/sieve/sieve.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/slim/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/slim/slim.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/slim/test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/smalltalk/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/smalltalk/smalltalk.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/smarty/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/smarty/smarty.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/smartymixed/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/smartymixed/smartymixed.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/solr/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/solr/solr.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/soy/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/soy/soy.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/sparql/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/sparql/sparql.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/spreadsheet/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/spreadsheet/spreadsheet.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/sql/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/sql/sql.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/stex/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/stex/stex.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/stex/test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/tcl/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/tcl/tcl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/textile/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/textile/test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/textile/textile.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/tiddlywiki/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/tiddlywiki/tiddlywiki.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/tiddlywiki/tiddlywiki.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/tiki/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/tiki/tiki.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/tiki/tiki.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/toml/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/toml/toml.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/tornado/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/tornado/tornado.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/turtle/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/turtle/turtle.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/vb/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/vb/vb.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/vbscript/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/vbscript/vbscript.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/velocity/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/velocity/velocity.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/verilog/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/verilog/test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/verilog/verilog.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/xml/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/xml/test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/xml/xml.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/xquery/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/xquery/test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/xquery/xquery.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/yaml/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/yaml/yaml.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/z80/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/codemirror/mode/z80/z80.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/colorpicker/bootstrap-colorpicker.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/contextMenu/jquery.contextMenu.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/cropper/cropper.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/dataTables/dataTables.bootstrap.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/dataTables/jquery.dataTables.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/datapicker/bootstrap-datepicker.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/diff_match_patch/diff_match_patch.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/dropzone/dropzone.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/duallistbox/jquery.bootstrap-duallistbox.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/easypiechart/jquery.easypiechart.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/echarts/echarts-all.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/fancybox/blank.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/fancybox/fancybox_loading.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/fancybox/fancybox_loading@2x.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/fancybox/fancybox_overlay.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/fancybox/fancybox_sprite.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/fancybox/fancybox_sprite@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/fancybox/jquery.fancybox.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/fancybox/jquery.fancybox.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/flot/curvedLines.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/flot/jquery.flot.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/flot/jquery.flot.pie.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/flot/jquery.flot.resize.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/flot/jquery.flot.spline.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/flot/jquery.flot.symbol.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/flot/jquery.flot.tooltip.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/footable/footable.all.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/fullcalendar/fullcalendar.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/fullcalendar/moment.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/gritter/images/gritter-light.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/gritter/images/gritter.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/gritter/images/ie-spacer.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/gritter/jquery.gritter.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/gritter/jquery.gritter.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/iCheck/icheck.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/ionRangeSlider/ion.rangeSlider.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/ionRangeSlider/jasny/jasny-bootstrap.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/jasny/jasny-bootstrap.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/jeditable/jquery.jeditable.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/jqgrid/i18n/grid.locale-cn.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/jqgrid/jquery.jqGrid.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/jquery-ui/jquery-ui.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/jsKnob/jquery.knob.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/jsTree/jstree.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/jsTree/jstree.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/layer/extend/layer.ext.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/layer/laydate/laydate.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/layer/laydate/need/laydate.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/layer/laydate/skins/default/icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/layer/laydate/skins/default/laydate.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/layer/layer.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/layer/layim/data/chatlog.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/layer/layim/data/friend.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/layer/layim/data/group.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/layer/layim/data/groups.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/layer/layim/layim.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/layer/layim/layim.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/layer/layim/loading.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/layer/skin/default/icon-ext.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/layer/skin/default/icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/layer/skin/default/icon_ext.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/layer/skin/default/loading-0.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/layer/skin/default/loading-1.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/layer/skin/default/loading-2.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/layer/skin/default/textbg.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/layer/skin/default/xubox_ico0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/layer/skin/default/xubox_loading0.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/layer/skin/default/xubox_loading1.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/layer/skin/default/xubox_loading2.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/layer/skin/default/xubox_loading3.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/layer/skin/default/xubox_title0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/layer/skin/layer.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/layer/skin/layer.ext.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/layer/skin/moon/default.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/layer/skin/moon/style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/markdown/bootstrap-markdown.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/markdown/bootstrap-markdown.zh.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/markdown/markdown.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/markdown/to-markdown.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/metisMenu/jquery.metisMenu.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/morris/morris.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/morris/raphael-2.1.0.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/multiselect/bootstrap-multiselect.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/nestable/jquery.nestable.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/nouslider/jquery.nouislider.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/pace/pace.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/peity/jquery.peity.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/plyr/plyr.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/preetyTextDiff/jquery.pretty-text-diff.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/prettyfile/bootstrap-prettyfile.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/rickshaw/rickshaw.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/rickshaw/vendor/d3.v3.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/simditor/hotkeys.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/simditor/hotkeys.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/simditor/jquery.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/simditor/module.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/simditor/module.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/simditor/simditor.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/simditor/simditor.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/simditor/uploader.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/simditor/uploader.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/slimscroll/jquery.slimscroll.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/sparkline/jquery.sparkline.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/staps/jquery.steps.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/suggest/bootstrap-suggest.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/suggest/data.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/summernote/summernote-zh-CN.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/summernote/summernote.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/summernote/summernote.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/sweetalert/sweetalert.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/switchery/switchery.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/toastr/toastr.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/treeview/bootstrap-treeview.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/validate/additional-methods.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/validate/jquery.validate.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/validate/messages_zh.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/webuploader/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/webuploader/Uploader.swf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/webuploader/webuploader.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/webuploader/webuploader.custom.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/webuploader/webuploader.custom.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/webuploader/webuploader.fis.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/webuploader/webuploader.flashonly.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/webuploader/webuploader.flashonly.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/webuploader/webuploader.html5only.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/webuploader/webuploader.html5only.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/webuploader/webuploader.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/webuploader/webuploader.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/webuploader/webuploader.noimage.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/webuploader/webuploader.noimage.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/webuploader/webuploader.nolog.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/webuploader/webuploader.nolog.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/webuploader/webuploader.withoutimage.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/plugins/webuploader/webuploader.withoutimage.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/js/welcome.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/plugins/fullavatareditor/asp.net/c#/Upload.aspx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/plugins/fullavatareditor/asp.net/c#/Upload.aspx.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/plugins/fullavatareditor/asp.net/c#/bin/Newtonsoft.Json.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/plugins/fullavatareditor/asp.net/vb/Upload.aspx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/plugins/fullavatareditor/asp.net/vb/Upload.aspx.vb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/plugins/fullavatareditor/asp.net/vb/bin/Newtonsoft.Json.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/plugins/fullavatareditor/asp/Upload.asp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/plugins/fullavatareditor/asp/Upload.asp.cls" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/plugins/fullavatareditor/crossdomain.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/plugins/fullavatareditor/expressInstall.swf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/plugins/fullavatareditor/fullAvatarEditor.swf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/plugins/fullavatareditor/jsp/WEB-INF/lib/commons-fileupload-1.3.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/plugins/fullavatareditor/jsp/WEB-INF/lib/fastjson-1.1.9.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/plugins/fullavatareditor/jsp/upload.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/plugins/fullavatareditor/php/upload.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/plugins/fullavatareditor/scripts/fullAvatarEditor.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/plugins/fullavatareditor/scripts/jQuery.Cookie.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/plugins/fullavatareditor/scripts/jQuery.Drag.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/plugins/fullavatareditor/scripts/jQuery.Resize.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/plugins/fullavatareditor/scripts/jQuery.dialog.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/plugins/fullavatareditor/scripts/swfobject.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/plugins/fullavatareditor/scripts/test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/static/plugins/fullavatareditor/simpleDemo.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-admin/target/classes/com/gumsy/controller/IndexController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wuye-parent.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common-util/common-util.iml" beforeDir="false" afterPath="$PROJECT_DIR$/common-util/common-util.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/model.iml" beforeDir="false" afterPath="$PROJECT_DIR$/model/model.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-admin/src/main/java/com/gumsy/controller/RoleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/web-admin/src/main/java/com/gumsy/controller/RoleController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-admin/src/main/java/com/gumsy/services/RoleServices.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-admin/src/main/java/com/gumsy/services/impl/RoleServicesImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/web-admin/src/main/java/com/gumsy/service/impl/RoleServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-admin/src/main/resources/db.properties" beforeDir="false" afterPath="$PROJECT_DIR$/web-admin/src/main/resources/db.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-admin/src/main/resources/spring/sprig-service.xml" beforeDir="false" afterPath="$PROJECT_DIR$/web-admin/src/main/resources/spring/sprig-service.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-admin/src/main/resources/spring/spring-dao.xml" beforeDir="false" afterPath="$PROJECT_DIR$/web-admin/src/main/resources/spring/spring-dao.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-admin/src/main/resources/spring/spring-mvc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/web-admin/src/main/resources/spring/spring-mvc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-admin/src/main/webapp/WEB-INFO/templates/role/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/WEB-INF/templates/role.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-admin/src/main/webapp/WEB-INFO/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/web-admin/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-admin/target/classes/com/gumsy/controller/RoleController.class" beforeDir="false" afterPath="$PROJECT_DIR$/web-admin/target/classes/com/gumsy/controller/RoleController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-admin/target/classes/com/gumsy/dao/RoleDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/web-admin/target/classes/com/gumsy/dao/RoleDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-admin/target/classes/db.properties" beforeDir="false" afterPath="$PROJECT_DIR$/web-admin/target/classes/db.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-admin/target/classes/spring/sprig-service.xml" beforeDir="false" afterPath="$PROJECT_DIR$/web-admin/target/classes/spring/sprig-service.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-admin/target/classes/spring/spring-dao.xml" beforeDir="false" afterPath="$PROJECT_DIR$/web-admin/target/classes/spring/spring-dao.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-admin/target/classes/spring/spring-mvc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/web-admin/target/classes/spring/spring-mvc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web-admin/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/web-admin/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-admin/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/web-admin/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-admin/web-admin.iml" beforeDir="false" afterPath="$PROJECT_DIR$/web-admin/web-admin.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,8 +565,8 @@
         <option value="spring-beans.schema" />
         <option value="Tag Library Descriptor" />
         <option value="Interface" />
-        <option value="HTML File" />
         <option value="Class" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -128,38 +599,41 @@
     </option>
   </component>
   <component name="ProjectId" id="2LlEUWxhsGgugJDi3qqxuE4OaP8" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;1.8&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/myxmu/Desktop/workspace/java/wuye-parent/model&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;6b291794dce0d2adb4f56bd412a54439&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "jdk.selected.JAVA_MODULE": "1.8",
+    "last_opened_file_path": "C:/Users/myxmu/Desktop/workspace/java/wuye-parent/web-admin/src/main/webapp/static",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
+    "spring.configuration.checksum": "becf5f7a7b5fd9e53ff08a50a75c9998",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\myxmu\Desktop\workspace\java\wuye-parent\web-admin\src\main\webapp\static" />
       <recent name="C:\Users\myxmu\Desktop\workspace\java\wuye-parent\model\src\main\java\com\gumsy\vo" />
       <recent name="C:\Users\myxmu\Desktop\workspace\java\wuye-parent\model\src\main\java\com\gumsy\entity" />
       <recent name="C:\Users\myxmu\Desktop\workspace\java\wuye-parent\common-util\src\main\java\com\gumsy\util" />
@@ -223,7 +697,17 @@
       <workItem from="1676548944998" duration="404000" />
       <workItem from="1676549360785" duration="13000" />
       <workItem from="1676549387444" duration="17000" />
+      <workItem from="1676549463407" duration="147000" />
+      <workItem from="1676549840266" duration="1285000" />
     </task>
+    <task id="LOCAL-00001" summary="环境测试ok">
+      <created>1676549533344</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1676549533344</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -281,5 +765,10 @@
         <entry key="6027f306-302a-4ad2-938d-1a2cde336f20" value="TOOL_WINDOW" />
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="环境测试ok" />
+    <MESSAGE value="继承hplus框架" />
+    <option name="LAST_COMMIT_MESSAGE" value="继承hplus框架" />
   </component>
 </project>
